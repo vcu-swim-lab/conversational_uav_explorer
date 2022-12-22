@@ -1,0 +1,11 @@
+version: "3.1"
+
+stories:
+
+- story: EXPLORE
+  steps:
+  - intent: explore_building
+    entities: 
+    - floor: ground floor
+    - building: next building
+  - action: utter_move

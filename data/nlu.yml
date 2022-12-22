@@ -1,0 +1,43 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+
+- intent: explore_building
+  examples: |
+    - Can you explore the [second floor](floor) of the [green house](building)?
+    - Look around the [top floor](floor) of the [house on 601 W Main St](building).
+    - Go and look inside the [attic](floor) of the [large house across the street](building).
+    - Explore the [back](relative) of the [five story building](building).
+
+
+#use localhost:5005/webhooks/rest/webhook for talking to bot using REST
+#curl -X POST localhost:5005/webhooks/rest/webhook -H "Content-type:application/json" -d "{\"sender\": \"test_user\", \"message\": \"Hi\"}"

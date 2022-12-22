@@ -1,0 +1,35 @@
+version: "3.1"
+
+entities:
+  - building
+  - floor
+
+slots:
+  floor:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: floor
+  building:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: building
+
+
+intents:
+  - explore_building
+  - goodbye
+  - greet
+
+
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_move:
+  - text: "Moving to the {floor} of {building}."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
