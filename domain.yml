@@ -3,6 +3,7 @@ version: "3.1"
 entities:
   - building
   - floor
+  - picture_type
 
 slots:
   floor:
@@ -15,20 +16,33 @@ slots:
     mappings:
     - type: from_entity
       entity: building
+  picture_type:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: picture_type
 
 
 intents:
   - explore_building
   - goodbye
   - greet
+  - take_picture
+  - monitor_building
 
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
+  - text: "Enter instruction"
 
   utter_move:
-  - text: "Moving to the {floor} of {building}."
+  - text: "Moving to the {floor} of the {building}."
+
+  utter_picture:
+  - text: "Taking Picture"
+  
+  utter_monitor:
+  - text: "Monitoring"
 
 session_config:
   session_expiration_time: 60

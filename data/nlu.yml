@@ -3,33 +3,14 @@ version: "3.1"
 nlu:
 - intent: greet
   examples: |
-    - hey
-    - hello
-    - hi
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
+    - start
 
 - intent: goodbye
   examples: |
-    - cu
-    - good by
-    - cee you later
     - good night
     - bye
     - goodbye
     - have a nice day
-    - see you around
-    - bye bye
-    - see you later
-
 
 - intent: explore_building
   examples: |
@@ -37,6 +18,18 @@ nlu:
     - Look around the [top floor](floor) of the [house on 601 W Main St](building).
     - Go and look inside the [attic](floor) of the [large house across the street](building).
     - Explore the [back](relative) of the [five story building](building).
+
+- intent: take_picture
+  examples: |
+    - Take [a picture](picture_type) inside the [nearby blue house](building).
+    - Take [several pictures](picture_type) of the location.
+    - Take [a picture](picture_type) of the [third floor of the blue house](building).
+
+- intent: monitor_building
+  examples: |
+    - Monitor the house at the [NE corner of the intersection of Main and Cary](building).
+    - Watch for activity at the [orange house](building). 
+    - Monitor the [orange house](building).
 
 
 #use localhost:5005/webhooks/rest/webhook for talking to bot using REST
