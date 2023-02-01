@@ -12,12 +12,13 @@ nlu:
     - goodbye
     - have a nice day
 
-- intent: explore_building
+- intent: explore
   examples: |
-    - Can you explore the [second floor](floor) of the [green house](building)?
-    - Look around the [top floor](floor) of the [house on 601 W Main St](building).
-    - Go and look inside the [attic](floor) of the [large house across the street](building).
-    - Explore the [back](relative) of the [five story building](building).
+    - Can you explore the [second floor](location) of the [green house](building)?
+    - Look around the [top floor](location) of the [house on 601 W Main St](building).
+    - Go and look inside the [attic](location) of the [large house across the street](building).
+    - Explore the [back](location) of the [five story building](building).
+    - Go to the [ground floor](location) of the [red building](building).
 
 - intent: take_picture
   examples: |
@@ -25,11 +26,27 @@ nlu:
     - Take [several pictures](picture_type) of the location.
     - Take [a picture](picture_type) of the [third floor of the blue house](building).
 
-- intent: monitor_building
+- intent: monitor
   examples: |
     - Monitor the house at the [NE corner of the intersection of Main and Cary](building).
     - Watch for activity at the [orange house](building). 
     - Monitor the [orange house](building).
+
+# - intent: action/stop
+
+# - intent: action/land
+
+# - intent: action/come_back
+
+# - intent: action/left
+
+# - intent: action/right
+
+# - intent: action/up
+
+# - intent: action/down
+
+# - intent: action/get_closer
 
 
 #use localhost:5005/webhooks/rest/webhook for talking to bot using REST

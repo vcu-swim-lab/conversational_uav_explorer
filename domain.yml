@@ -2,33 +2,42 @@ version: "3.1"
 
 entities:
   - building
-  - floor
+  - location
   - picture_type
 
 slots:
-  floor:
+  location:
     type: text
+    influence_conversation: false
     mappings:
     - type: from_entity
-      entity: floor
+      entity: location
   building:
     type: text
+    influence_conversation: false
     mappings:
     - type: from_entity
       entity: building
   picture_type:
     type: text
+    influence_conversation: false
     mappings:
     - type: from_entity
       entity: picture_type
+  explore:
+    type: bool
+    influence_conversation: false
+    initial_value: false
+    mappings:
+    - type: custom
 
 
 intents:
-  - explore_building
+  - explore
   - goodbye
   - greet
   - take_picture
-  - monitor_building
+  - monitor
 
 
 responses:
@@ -36,7 +45,7 @@ responses:
   - text: "Enter instruction"
 
   utter_move:
-  - text: "Moving to the {floor} of the {building}."
+  - text: "Moving to the {location} of the {building}."
 
   utter_picture:
   - text: "Taking Picture"

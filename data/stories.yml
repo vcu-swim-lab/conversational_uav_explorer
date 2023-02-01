@@ -1,28 +1,2 @@
-version: "3.1"
 
-stories:
-
-- story: EXPLORE
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: explore_building
-    entities: 
-    - floor: ground floor
-    - building: next building
-  - action: utter_move
-
-- story: PICTURE
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: take_picture
-  - action: utter_picture
-
-- story: MONITOR
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: monitor_building
-  - action: utter_monitor
 
