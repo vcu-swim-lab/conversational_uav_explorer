@@ -26,8 +26,7 @@ slots:
       entity: picture_type
   explore:
     type: bool
-    influence_conversation: false
-    initial_value: false
+    influence_conversation: true
     mappings:
     - type: custom
 
@@ -38,20 +37,48 @@ intents:
   - greet
   - take_picture
   - monitor
+  - move
 
 
 responses:
   utter_greet:
-  - text: "Enter instruction"
+  - text: "Enter instruction {explore}"
 
-  utter_move:
-  - text: "Moving to the {location} of the {building}."
+  utter_explore:
+  - text: "Moving to the {location} of the {building}. {explore}"
 
   utter_picture:
-  - text: "Taking Picture"
+  - text: "Taking Picture {explore}"
+  utter_picture_n:
+  - text: "First set explore location"
   
   utter_monitor:
-  - text: "Monitoring"
+  - text: "Monitoring {explore}"
+  utter_monitor_n:
+  - text: "First set explore location"
+
+  utter_move/stop:
+  - text: "Stopping"
+  utter_move/land:
+  - text: "Landing"
+  utter_move/come_back:
+  - text: "Returning"
+  utter_move/left:
+  - text: "Moving left"
+  utter_move/right:
+  - text: "Moving right"
+  utter_move/up:
+  - text: "Moving up"
+  utter_move/down:
+  - text: "Moving down"
+  utter_move/get_closer:
+  - text: "Moving closer"
+  utter_move_n:
+  - text: "First set explore location"
+actions:
+  - action_explore_t
+  - action_explore_f
+
 
 session_config:
   session_expiration_time: 60

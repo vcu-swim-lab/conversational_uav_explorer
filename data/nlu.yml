@@ -32,21 +32,64 @@ nlu:
     - Watch for activity at the [orange house](building). 
     - Monitor the [orange house](building).
 
-# - intent: action/stop
+- intent: move/stop
+  examples: |
+    - stop the drone
+    - stop flight
+    - stop activity
 
-# - intent: action/land
+- intent: move/land
+  examples: |
+    - land the drone
+    - land here
+    - something land something
+    - land at nearest location
 
-# - intent: action/come_back
+- intent: move/come_back
+  examples: |
+    - return to home
+    - return to base
+    - come back to home
+    - come back to base
+    - come back to headquarters
+    - return to headquarters
 
-# - intent: action/left
+- intent: move/left
+  examples: |
+    - move left
+    - fly to the left
+    - move to the left
+    - left
 
-# - intent: action/right
+- intent: move/right
+  examples: |
+    - move right
+    - fly to the right
+    - move to the right
+    - right
 
-# - intent: action/up
+- intent: move/up
+  examples: |
+    - move up
+    - fly up
+    - fly upwards
+    - up
+    - upwards
 
-# - intent: action/down
+- intent: move/down
+  examples: |
+    - move down
+    - fly down
+    - fly downwards
+    - down
+    - downwards
 
-# - intent: action/get_closer
+- intent: move/get_closer
+  examples: |
+    - move closer
+    - fly closer
+    - get closer
+    - closer
 
 
 #use localhost:5005/webhooks/rest/webhook for talking to bot using REST
