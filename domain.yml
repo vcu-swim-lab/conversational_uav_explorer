@@ -8,27 +8,19 @@ entities:
 slots:
   location:
     type: text
-    influence_conversation: false
     mappings:
     - type: from_entity
       entity: location
   building:
     type: text
-    influence_conversation: false
     mappings:
     - type: from_entity
       entity: building
   picture_type:
     type: text
-    influence_conversation: false
     mappings:
     - type: from_entity
       entity: picture_type
-  explore:
-    type: bool
-    influence_conversation: true
-    mappings:
-    - type: custom
 
 
 intents:
@@ -42,21 +34,33 @@ intents:
 
 responses:
   utter_greet:
-  - text: "Enter instruction {explore}"
-
+  - text: "Enter instruction"
   utter_explore:
-  - text: "Moving to the {location} of the {building}. {explore}"
-
+  - condition: 
+    - type: slot
+      name: location
+      value: null
+    text: "Moving to the {building}"
+  - condition: 
+    - type: slot
+      name: building
+      value: null
+    text: "Moving to the {location}"
+  - text: "Moving to the {location} of the {building}."
   utter_picture:
-  - text: "Taking Picture {explore}"
-  utter_picture_n:
-  - text: "First set explore location"
-  
+  - condition: 
+    - type: slot
+      name: location
+      value: null
+    text: "Taking {picture_type}"
+  - text: "Taking {picture_type} of {location}"
   utter_monitor:
-  - text: "Monitoring {explore}"
-  utter_monitor_n:
-  - text: "First set explore location"
-
+  - condition: 
+    - type: slot
+      name: location
+      value: null
+    text: "Monitoring the location"
+  - text: "Monitoring the {location}"
   utter_move/stop:
   - text: "Stopping"
   utter_move/land:
@@ -73,12 +77,6 @@ responses:
   - text: "Moving down"
   utter_move/get_closer:
   - text: "Moving closer"
-  utter_move_n:
-  - text: "First set explore location"
-actions:
-  - action_explore_t
-  - action_explore_f
-
 
 session_config:
   session_expiration_time: 60

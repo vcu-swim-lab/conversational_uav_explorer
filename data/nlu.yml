@@ -4,6 +4,9 @@ nlu:
 - intent: greet
   examples: |
     - start
+    - hi
+    - hello
+
 
 - intent: goodbye
   examples: |
@@ -15,28 +18,39 @@ nlu:
 - intent: explore
   examples: |
     - Can you explore the [second floor](location) of the [green house](building)?
-    - Look around the [top floor](location) of the [house on 601 W Main St](building).
+    - Look around the [top floor](location) of the [house at 601 W Main St](building).
     - Go and look inside the [attic](location) of the [large house across the street](building).
     - Explore the [back](location) of the [five story building](building).
     - Go to the [ground floor](location) of the [red building](building).
+    - Move to the [white house](building).
+    - Move to the [bottom](location) of the [white house](building).
+    - Move to the [house at 25232 N Washington Dr]
+    - Explore the [front](location) of the [house on 43143 Brookside Pl](building).
+    - Explore the [left](location) of the house.
+    - Explore the [right side](location) of the [big yellow building](building).
 
 - intent: take_picture
   examples: |
-    - Take [a picture](picture_type) inside the [nearby blue house](building).
+    - Take a [picture](picture_type).
+    - Take a [picture](picture_type) inside the [nearby blue house](location).
     - Take [several pictures](picture_type) of the location.
-    - Take [a picture](picture_type) of the [third floor of the blue house](building).
+    - Take a [picture](picture_type) of the [third floor of the blue house](location).
+    - Take a [picture](picture_type) of the [front of the house](location).
+    - Take a [picture](picture_type) of the [left side of the red building](location).
 
 - intent: monitor
   examples: |
-    - Monitor the house at the [NE corner of the intersection of Main and Cary](building).
-    - Watch for activity at the [orange house](building). 
-    - Monitor the [orange house](building).
+    - Monitor the house at the [NE corner of the intersection of Main and Cary](location).
+    - Watch for activity at the [orange house](location). 
+    - Monitor the [orange house](location).
+    - Monitor this location.
 
 - intent: move/stop
   examples: |
     - stop the drone
     - stop flight
     - stop activity
+    - stop
 
 - intent: move/land
   examples: |

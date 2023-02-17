@@ -1,7 +1,7 @@
+version: "3.1"
 rules:
 
 - rule: START
-  conversation_start: true
   steps:
   - intent: greet
   - action: utter_greet
@@ -9,56 +9,22 @@ rules:
 - rule: EXPLORE
   steps:
   - intent: explore
-  - action: action_explore_t
+  
   - action: utter_explore
-
+  - action: action_back
 
 - rule: TAKE PICTURE
-  condition:
-    - slot_was_set:
-      - explore: true
   steps:
   - intent: take_picture
-  - action: action_explore_t
   - action: utter_picture
-
-- rule: TAKE PICTURE
-  condition:
-    - slot_was_set:
-      - explore: null
-  steps:
-  - intent: take_picture
-  - action: utter_picture_n
+  - action: action_restart
 
 - rule: MONITOR
-  condition:
-    - slot_was_set:
-      - explore: true  
   steps:
   - intent: monitor
-  - action: action_explore_t
   - action: utter_monitor
 
-- rule: MONITOR
-  condition:
-    - slot_was_set:
-      - explore: null
-  steps:
-  - intent: monitor
-  - action: utter_monitor_n
-
-- rule: respond to action request
-  condition:
-    - slot_was_set:
-      - explore: true
+- rule: respond to safety/feedback request
   steps:
   - intent: move
   - action: utter_move
-
-- rule: respond to action request
-  condition:
-    - slot_was_set:
-      - explore: null
-  steps:
-  - intent: move
-  - action: utter_move_n
