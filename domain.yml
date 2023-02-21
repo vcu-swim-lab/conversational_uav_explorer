@@ -6,16 +6,19 @@ entities:
 slots:
   location:
     type: text
+    influence_conversation: false
     mappings:
     - type: from_entity
       entity: location
   building:
     type: text
+    influence_conversation: false
     mappings:
     - type: from_entity
       entity: building
   picture_type:
     type: text
+    influence_conversation: false
     mappings:
     - type: from_entity
       entity: picture_type
@@ -38,13 +41,13 @@ responses:
     - type: slot
       name: location
       value: null
-    text: "Moving to the {building}"
+    text: "Exploring the {building}"
   - condition: 
     - type: slot
       name: building
       value: null
-    text: "Moving to the {location}"
-  - text: "Moving to the {location} of the {building}."
+    text: "Exploring the {location}"
+  - text: "Exploring the {location} of the {building}."
   utter_picture:
   - condition: 
     - type: slot

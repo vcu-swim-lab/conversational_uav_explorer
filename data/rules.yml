@@ -10,24 +10,28 @@ rules:
   - intent: explore
   - action: utter_explore
   - action: action_display_info
+  - action: action_restart
 
 - rule: TAKE PICTURE
   steps:
   - intent: take_picture
   - action: utter_picture
   - action: action_display_info
+  - action: action_restart
 
 - rule: MONITOR
   steps:
   - intent: monitor
   - action: utter_monitor
   - action: action_display_info
+  - action: action_restart
 
 - rule: respond to safety/feedback request
   steps:
   - intent: move
   - action: utter_move
   - action: action_display_info
+  - action: action_restart
 
 - rule: Ask the user to rephrase whenever they send a message with low NLU confidence
   steps:

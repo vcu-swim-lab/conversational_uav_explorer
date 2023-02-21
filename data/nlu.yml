@@ -5,13 +5,6 @@ nlu:
     - hi
     - hello
 
-- intent: goodbye
-  examples: |
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-
 - intent: explore
   examples: |
     - Can you explore the [second floor](location) of the [green house](building)?
@@ -21,10 +14,10 @@ nlu:
     - Go to the [ground floor](location) of the [red building](building).
     - Move to the [white house](building).
     - Move to the [bottom](location) of the [white house](building).
-    - Move to the [house at 25232 N Washington Dr]
+    - Move to the [house at 25232 N Washington Dr](building).
     - Explore the [front](location) of the [house on 43143 Brookside Pl](building).
-    - Explore the [left](location) of the house.
-    - Explore the [right side](location) of the [big yellow building](building).
+    - Explore the [west side](location) of the [house](building).
+    - Explore the [east side](location) of the [big yellow building](building).
 
 - intent: take_picture
   examples: |
@@ -33,7 +26,7 @@ nlu:
     - Take [several pictures](picture_type) of the location.
     - Take a [picture](picture_type) of the [third floor of the blue house](location).
     - Take a [picture](picture_type) of the [front of the house](location).
-    - Take a [picture](picture_type) of the [left side of the red building](location).
+    - Take a [picture](picture_type) of the [west side of the red building](location).
 
 - intent: monitor
   examples: |
