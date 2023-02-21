@@ -1,12 +1,9 @@
-version: "3.1"
-
 nlu:
 - intent: greet
   examples: |
     - start
     - hi
     - hello
-
 
 - intent: goodbye
   examples: |
