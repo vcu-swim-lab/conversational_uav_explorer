@@ -7,7 +7,6 @@
 
 
 import json
-from tkinter import EventType
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
@@ -23,7 +22,7 @@ class ActionGreetUser(Action):
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
         domain: Dict[Text, Any],
-    ) -> List[EventType]:
+    ):
         s = []
         for item in tracker.latest_message["entities"]:
             n = {
