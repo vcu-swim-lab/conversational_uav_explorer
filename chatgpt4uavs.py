@@ -1,7 +1,3 @@
-# Setup ChatGPT
-pip install langchain
-pip install openai
-
 # Necessary imports
 import os
 from langchain.llms import OpenAI
@@ -21,9 +17,6 @@ from langchain.chains import LLMChain
 from langchain.chains import SequentialChain
 
 # The following algorithm will be an implementation of the Command Breakdown, with Whisper translating the command to text.
-
-# Installing Library
-!pip install -U openai-whisper
 
 # THE WHISPER PART CURRENTLY IS TEMPORARY, SEPERATE SITE FOR VOICE INPUT COMING SOON!!!!!
 # This is where the model of Whisper used is selected.
