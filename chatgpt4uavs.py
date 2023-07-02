@@ -1,6 +1,9 @@
 # Necessary imports
 import os
 from langchain.llms import OpenAI
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain, SimpleSequentialChain, SequentialChain
+import whisper
 
 # API Key
 os.environ["OPENAI_API_KEY"] = "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"
@@ -11,17 +14,11 @@ llm = OpenAI(temperature=0.9)
 text = "What would be a good company name for a company that makes colorful socks?"
 print(llm(text))
 
-# Necessary Imports
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
-from langchain.chains import SequentialChain
-
 # The following algorithm will be an implementation of the Command Breakdown, with Whisper translating the command to text.
 
 # THE WHISPER PART CURRENTLY IS TEMPORARY, SEPERATE SITE FOR VOICE INPUT COMING SOON!!!!!
 # This is where the model of Whisper used is selected.
-# Importing Whisper and picking the model. 
-import whisper
+# Picking the model.
 model = whisper.load_model("base")
 
 # This is where the path is put down to the audio file, so it can be transcribed.
@@ -72,16 +69,13 @@ Photo Amount
 
 command2 = PromptTemplate(
     input_variables = ["sentence"],
-    template = prompt_command
+    template = prompt_command2
 )
 
 # Action Chain Creation
 command_chain2 = LLMChain(llm = llm,
                         prompt = command2,
                         output_key = "breakdown2")
-
-# Necessary import for the Simple Sequential Chain.
-from langchain.chains import SimpleSequentialChain
 
 # Connecting the two created chains via the SimpleSequentialChain.
 sentence_command_chain = SimpleSequentialChain(
