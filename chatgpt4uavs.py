@@ -27,8 +27,8 @@ transcription = result["text"]
 
 # Creating a Prompt and Chain with the transcription so it can be passed to the offical Command Prompt via Simple Sequential chain
 # Transcription Prompt
-transcribe_prompt = """You are to pass the aubio transcription to the next
-chain. Do not alter the transciption in any way.
+transcribe_prompt = """You are to pass the audio transcription to the next
+chain. Do not alter the transcription in any way.
 
 Transcription: {text}
 """
