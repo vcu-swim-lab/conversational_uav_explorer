@@ -14,9 +14,9 @@ messages = [
 
 def transcribe(audio):
     global messages
+
     audio_file = open(audio, "rb")
     transcript = openai.Audio.transcribe("whisper-1", audio_file)
-    print(transcript)
 
     messages.append({"role": "user", "content": transcript["text"]})
 
@@ -26,6 +26,7 @@ def transcribe(audio):
     )
 
     uav_response = response["choices"][0]["message"]["content"]
+
     messages.append({"role": "assistant", "content": uav_response})
 
     chat_transcript = ""
@@ -36,9 +37,21 @@ def transcribe(audio):
     return chat_transcript
 
 
-ui = gr.Interface(
-    fn=transcribe,
-    inputs=gr.Audio(source="microphone", type="filepath"),
-    outputs="text").launch(share=True)
+with gr.Blocks() as demo:
+    gr.Markdown("""
+    # Conversational UAV Explorer
+    Speak into the microphone to give a command.\n\n
+    Commands: Explore, Take Picture, Monitor, Stop, Land, Come Back, Left, Right, Up, Down, Get Closer""")
+    with gr.Row().style(equal_height=True):
+        audio_input = gr.Audio(source="microphone", type="filepath")
+        output = gr.Textbox(label="Transcript")
+    with gr.Row():
+        with gr.Column():
+            submit_btn = gr.Button("Give command")
+            submit_btn.click(fn=transcribe, inputs=audio_input, outputs=output, api_name="record")
+    with gr.Accordion("Example commands:"):
+        gr.Markdown("Explore the floor of the green house.\n\n"
+                    "Take a picture inside the brick house on Main St.\n\n"
+                    "Monitor the house at the NE corner of the intersection of Main and Cary.")
 
-ui.launch()
+demo.launch(share=True)
