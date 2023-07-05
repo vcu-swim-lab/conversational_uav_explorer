@@ -12,7 +12,7 @@ os.environ["OPENAI_API_KEY"] = "sk-jcUY5j2FpZkRJ6jvnrn6T3BlbkFJyY6w420BRPsW1gkHn
 llm = OpenAI(temperature=0.9)
 
 # The following algorithm will be an implementation of the Command Breakdown, with a gradio web app that will
-# transcibe the commands. It will soon be integrated with this program.
+# transcribe the commands. It will soon be integrated with this program.
 
 # Creating a Prompt and Chain with the transcription so it can be passed to the offical Command Prompt via Simple
 # Sequential chain Transcription Prompt
