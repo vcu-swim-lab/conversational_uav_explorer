@@ -14,7 +14,7 @@ llm = OpenAI(temperature=0.9)
 # The following algorithm will be an implementation of the Command Breakdown, with a gradio web app that will
 # transcribe the commands. It will soon be integrated with this program.
 
-# Creating a Prompt and Chain with the transcription so it can be passed to the offical Command Prompt via Simple
+# Creating a Prompt and Chain with the transcription so it can be passed to the official Command Prompt via Simple
 # Sequential chain Transcription Prompt
 transcribe_prompt = """You are to pass the aubio transcription to the next
 chain. Do not alter the transcription in any way.
