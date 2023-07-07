@@ -10,17 +10,18 @@ from langchain.prompts.few_shot import FewShotPromptTemplate
 os.environ["OPENAI_API_KEY"] = "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"
 
 # Initializing OpenAI as the large language model
-llm = OpenAI(temperature=0.9)
+llm = OpenAI(temperature = 0.9)
 
-def get_transcription(text):
+def get_transcription():
   # Creating a Prompt and Chain with the transcription so it can be passed to the official Command Prompt via Simple Sequential chain
-  # Transcription Prompt
+  # Transcription template
   transcribe = """You are to pass the aubio transcription to the next
   chain. Do not alter the transcription in any way.
 
   Transcription: {text}
   """
 
+ # Transcription prompt
   transcribe_prompt = PromptTemplate(
       input_variables = ["text"],
       template = transcribe
@@ -33,101 +34,29 @@ def get_transcription(text):
 
   return sentence_chain
 
+
+# Method takes in the transcription chain to link them together with a sequential chain, which is then returned.
 def format_command(chain):
-  # Creating examples for each command that the llm can use to help format our commands.
-  # Also passing the transcription to the Command Prompt Template.
-  examples = [
-  {
-    "sentence": "Take Off now.",
-    "command": """takeoff  rise from the ground"""
-  },
-  {
-    "sentence": "Take Off from where you are.",
-    "command": """takeoff  rise from the ground"""
-  },
-  {
-    "sentence": "Take Off and go to the yellow house.",
-    "command": """takeoff  rise from the ground"""
-  },
-  {
-    "sentence": "Take Off.",
-    "command": """takeoff  rise from the ground"""
-  },
-  {
-    "sentence": "Land now.",
-    "command": """land  slowly lower to the the ground where you are"""
-  },
-  {
-    "sentence": "Land where you are.",
-    "command": """land  slowly lower to the the ground where you are."""
-  },
-  {
-    "sentence": "Land at the purple house on W Main.",
-    "command": """land  fly to the purple house on W Main then slowly lower to the ground."""
-  },
-  {
-    "sentence": "Land.",
-    "command": """land  slowly lower to the the ground where you are"""
-  },
-  {
-    "sentence": "Take picture.",
-    "command": """pic  take a photo of whatever is in front of you"""
-  },
-  {
-    "sentence": "Take a picture now.",
-    "command": """pic  take a photo of whatever is in front of you"""
-  },
-  {
-    "sentence": "Take a photo of the green house on the corner of Cary and Belvidere.",
-    "command": """pic  take a photo of the green house on the corner of Cary and Belvidere"""
-  },
-  {
-    "sentence": "Take picture of the front door of the Engineering West Hall.",
-    "command": """pic  take a photo of the front door of the Engineering West Hall"""
-  },
-  {
-    "sentence": "Go to the 7/11 across the street.",
-    "command": """move  fly to the 7/11 across the street"""
-  },
-  {
-    "sentence": "Go to the yellow house two houses to the right of here.",
-    "command": """move  fly to the yellow house two houses to the right of here"""
-  },
-  {
-    "sentence": "Go to.",
-    "command": """move  stay in place no location given"""
-  },
-  {
-    "sentence": "Go to the Walmart on Iron Bridge Road.",
-    "command": """move  to the Walmart on Iron Bridge Road"""
-  }
-  ]
-
-  # Formatter for the examples
-  example_prompt = PromptTemplate(input_variables=["sentence", "command"], template="sentence: {sentence}\n{command}")
-  print(example_prompt.format(**examples[0]))
-
-  # Prompt Creation
-  prompt = FewShotPromptTemplate(
-    examples = examples,
-    example_prompt = example_prompt,
-    suffix = """You are in control of an Unmanned Aerial Vehicle or UAV. You are going to be given a
+  
+  # Prompt template
+  prompt = """You are in control of an Unmanned Aerial Vehicle or UAV. You are going to be given a
     sentence command, you need to find the action of the sentence. The action will be, Take Picture,
     Take Off, Land and Go To. If the action is "Take Off" or "Land" you don't need any further information
     for the location. If the action is "Take Picture" or "Go To" you'll need to find where to carry out the action.
     You need to find. If you can't find an action or location, answer with "none". You need to return the command
-    in this format: command <command> \\tab <goal>
+    in this format: command <command> \t <goal>
 
     Sentence: {sentence}
-    """,
-    input_variables=["sentence"]
+    """
+
+  # Prompt Creation
+  command = PromptTemplate(
+    input_variables = ["sentence"],
+    template = prompt
   )
 
-  # Prompt Formatting
-  print(example_prompt.format(**examples[0]))
-
   # Chain Creation
-  command_chain = LLMChain(llm=llm, prompt=prompt, output_key="output")
+  command_chain = LLMChain(llm=llm, prompt=command, output_key="output")
 
   # Initializing chain needed to connect using the parameters
   sentence_chain = chain
@@ -137,15 +66,19 @@ def format_command(chain):
     chains=[sentence_chain, command_chain], verbose=True
   )
 
-  # Saving the commands in the new format
-  final_command = sentence_command_chain.run("imagine_a_transcription_here")
+  # Returning the new combined chain
+  return sentence_command_chain
 
-  return final_command
+
+# Method to get the actual formatted command
+def get_command(text):
+  return format_command(get_transcription()).run(text)
 
 
 # METHOD TESTING
-transcription_test = get_transcription("Take off.")
-print(format_command(transcription_test))
+print(get_command("Go to the red house on W Broad St."))
+
 
 # The next part is to write the output of the final_command variable to a file
 # IMPLEMENTATION BELOW SHORTLY
+
