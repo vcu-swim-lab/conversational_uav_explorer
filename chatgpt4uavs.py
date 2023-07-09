@@ -12,7 +12,7 @@ os.environ["OPENAI_API_KEY"] = "sk-jcUY5j2FpZkRJ6jvnrn6T3BlbkFJyY6w420BRPsW1gkHn
 # Initializing OpenAI as the large language model
 llm = OpenAI(temperature = 0.9)
 
-def get_transcription():
+def get_transcription(text):
   # Creating a Prompt and Chain with the transcription so it can be passed to the official Command Prompt via Simple Sequential chain
   # Transcription template
   transcribe = """You are to pass the aubio transcription to the next
@@ -72,7 +72,7 @@ def format_command(chain):
 
 # Method to get the actual formatted command
 def get_command(text):
-  return format_command(get_transcription()).run(text)
+  return format_command(get_transcription(text))
 
 
 # METHOD TESTING

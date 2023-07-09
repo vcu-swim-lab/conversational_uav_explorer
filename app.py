@@ -19,15 +19,12 @@ def transcribe(audio):
 
     audio_file = open(audio, "rb")
     transcript = openai.Audio.transcribe("whisper-1", audio_file)
-    print("TRANSCRIPT:", transcript["text"])
 
-    # Gradio runs well but having issues with output saying "none" even though audio was recorded
-    transcript_chain = chatgpt4uavs.get_transcription(transcript["text"])
-    print("TRANSCRIPT CHAIN:", transcript_chain)
-    formatted_command = chatgpt4uavs.format_command(transcript_chain)
-    print("FORMATTED COMMAND:", formatted_command)
+    formatted_command = chatgpt4uavs.get_command(transcript["text"])
+    formatted_command_output = formatted_command.run(transcript["text"])
+    formatted_command_text = formatted_command_output
 
-    messages.append({"role": "user", "content": formatted_command})
+    messages.append({"role": "user", "content": formatted_command_text})
 
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
