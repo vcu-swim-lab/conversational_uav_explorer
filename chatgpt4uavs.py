@@ -43,7 +43,7 @@ def format_command(chain):
     Take Off, Land and Go To. If the action is "Take Off" or "Land" you don't need any further information
     for the location. If the action is "Take Picture" or "Go To" you'll need to find where to carry out the action.
     You need to find. If you can't find an action or location, answer with "none". You need to return the command
-    in this format: <command> \t <goal>
+    in this format: command <command> \t <goal>
 
     Sentence: {sentence}
     """
