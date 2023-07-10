@@ -26,3 +26,56 @@ efficiently. You must acknowledge the command if you understand it. Use 2-3
 sentences to respond to the officer's instructions, ask for clarification if 
 needed, and provide updates on the execution status of the given commands.
 """
+
+# Creating examples for each command that the llm can use to help format our commands.
+# Also passing the transcription to the Command Prompt Template.
+examples_few_shot = [
+    {
+    "sentence": "Take off now.",
+    "command": "command: take off"""
+    },
+    {
+    "sentence": "Take off from where you are.",
+    "command": "command: take off"
+    },
+    {
+    "sentence": "Go up and go",
+    "command": "command: take off"
+    },
+    {
+    "sentence": "Lift off.",
+    "command": "command: take off"
+    },
+    {
+    "sentence": "Land now.",
+    "command": "command: land"
+    },
+    {
+    "sentence": "Go to the ground where you are.",
+    "command": "command: land"
+    },
+    {
+    "sentence": "Take a picture.",
+    "command": "command: take picture"
+    },
+    {
+    "sentence": "Take a picture when you can please.",
+    "command": "command: take picture"    
+    },
+    {
+    "sentence": "Go to the 7/11 across the street.",
+    "command": "command: go to \t7/11 across the street"
+    },
+    {
+    "sentence": "Go to the yellow house two houses to the right of here.",
+    "command": "command: go to \tyellow house two houses to the right of here"""
+    },
+    {
+    "sentence": "Go to.",
+    "command": "None"
+    },
+    {
+    "sentence": "Go to the Walmart on Iron Bridge Road.",
+    "command": "command: go to \tWalmart on Iron Bridge Road"""
+    }
+]

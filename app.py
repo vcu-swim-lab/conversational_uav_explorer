@@ -2,9 +2,11 @@ import openai
 import gradio as gr
 import chatgpt4uavs
 from prompts import prompt_chat_response
+from fewshot import FewShot4UAVs
 
 openai.api_key = "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"
 
+fewshot = FewShot4UAVs()
 
 def transcribe(audio):
     messages = [
@@ -15,7 +17,8 @@ def transcribe(audio):
     audio_file = open(audio, "rb")
     transcript = openai.Audio.transcribe("whisper-1", audio_file)
 
-    formatted_command_text = chatgpt4uavs.get_command(transcript["text"])
+    # formatted_command_text = chatgpt4uavs.get_command(transcript["text"])
+    formatted_command_text = fewshot.get_command(transcript["text"])
 
     messages.append({"role": "user", "content": formatted_command_text})
 

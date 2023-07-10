@@ -10,7 +10,7 @@ from prompts import prompt_transcribe, prompt_command
 os.environ["OPENAI_API_KEY"] = "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"
 
 # Initializing OpenAI as the large language model
-llm = OpenAI(temperature=0.9)
+llm = OpenAI(temperature=0.0)
 
 
 def get_transcription(text):
