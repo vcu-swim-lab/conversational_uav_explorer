@@ -4,6 +4,7 @@ from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.chains import SimpleSequentialChain
+from prompts import prompt_transcribe, prompt_command
 
 # API Key
 os.environ["OPENAI_API_KEY"] = "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"
@@ -13,18 +14,10 @@ llm = OpenAI(temperature=0.9)
 
 
 def get_transcription(text):
-    # Creating a Prompt and Chain with the transcription so it can be passed to the official Command Prompt via
-    # Simple Sequential chain Transcription template
-    transcribe = """You are to pass the aubio transcription to the next
-  chain. Do not alter the transcription in any way.
-
-  Transcription: {text}
-  """
-
     # Transcription prompt
     transcribe_prompt = PromptTemplate(
         input_variables=["text"],
-        template=transcribe
+        template=prompt_transcribe
     )
 
     # Creating transcription chain
@@ -37,21 +30,10 @@ def get_transcription(text):
 
 # Method takes in the transcription chain to link them together with a sequential chain, which is then returned.
 def format_command(chain):
-    # Prompt template
-    prompt = """You are in control of an Unmanned Aerial Vehicle or UAV. You are going to be given a
-    sentence command, you need to find the action of the sentence. The action will be, Take Picture,
-    Take Off, Land and Go To. If the action is "Take Off" or "Land" you don't need any further information
-    for the location. If the action is "Take Picture" or "Go To" you'll need to find where to carry out the action.
-    You need to find. If you can't find an action or location, answer with "none". You need to return the command
-    in this format: command <command> \t <goal>
-
-    Sentence: {sentence}
-    """
-
     # Prompt Creation
     command = PromptTemplate(
         input_variables=["sentence"],
-        template=prompt
+        template=prompt_command
     )
 
     # Chain Creation
@@ -71,11 +53,6 @@ def format_command(chain):
 
 # Method to get the actual formatted command
 def get_command(text):
-    return format_command(get_transcription(text))
+    command = format_command(get_transcription(text))
+    return command.run(text)
 
-
-# METHOD TESTING
-print(get_command("Go to the red house on W Broad St."))
-
-# The next part is to write the output of the final_command variable to a file
-# IMPLEMENTATION BELOW SHORTLY
