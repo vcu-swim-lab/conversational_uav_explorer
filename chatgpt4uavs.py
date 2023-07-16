@@ -50,9 +50,14 @@ def format_command(chain):
     # Returning the new combined chain
     return sentence_command_chain
 
+def to_file(text):
+        f = open("commands.txt", "w")
+        f.write(text)
+        f.close()
 
 # Method to get the actual formatted command
 def get_command(text):
     command = format_command(get_transcription(text))
+    to_file(command.run(text))
     return command.run(text)
 
