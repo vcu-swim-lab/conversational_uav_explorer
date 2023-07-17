@@ -77,5 +77,77 @@ examples_few_shot = [
     {
     "sentence": "Go to the Walmart on Iron Bridge Road.",
     "command": "command: go to \tWalmart on Iron Bridge Road"""
+    },
+    {
+    "sentence": "Stop flying",
+    "command": "command: land"""
+    },
+    {
+    "sentence": "Take flight",
+    "command": "command: take off"""
+    },
+    {
+    "sentence": "Travel to the purple house on the left side.",
+    "command": "command: go to \tpurple house on the left side"""
+    },
+    {
+    "sentence": "Travel to the Barnes and Noble on West Broad.",
+    "command": "command: go to \tBarnes and Noble on West Broad"""
+    },
+    {
+    "sentence": "Take a pic.",
+    "command": "command: take picture"    
+    },
+    {
+    "sentence": "Take a photo.",
+    "command": "command: take picture"    
+    },
+    {
+    "sentence": "Snap a photo.",
+    "command": "command: take picture"    
+    },
+    {
+    "sentence": "Snap a pic.",
+    "command": "command: take picture"    
+    },
+    {
+    "sentence": "Fly to the parking garage across the street.",
+    "command": "command: go to \tparking garage across the street"
+    },
+    {
+    "sentence": "Fly to the Sonic on West Cary St.",
+    "command": "command: go to \tSonic on West Cary St."
+    },
+    {
+    "sentence": "Check out the pizza shop next to the red house over there.",
+    "command": "command: go to \tpizza shop next to the red house over there."
+    },
+    {
+    "sentence": "Check out the Cary St Gym.",
+    "command": "command: go to \tthe Cary St Gym"
+    },
+    {
+    "sentence": "Check out",
+    "command": "None"
+    },
+    {
+    "sentence": "Travel to",
+    "command": "None"
+    },
+    {
+    "sentence": "Cease flight",
+    "command": "land"
+    },
+    {
+    "sentence": "Stop the flight",
+    "command": "land"
+    },
+    {
+    "sentence": "Investigate the green house to the left.",
+    "command": "command: go to \tgreen house to the left"
+    },
+    {
+    "sentence": "Investigate the Rite Aid on Broad and Belevidere.",
+    "command": "command: go to \tRite Aid on Broad and Belevidere"
     }
 ]
