@@ -16,12 +16,6 @@ def test_red_house():
     command = parse_command(output)
     assert command == "go to"
 
-def test_red_house():
-    text = "Go to the red house on W Broad St."
-    output = get_command(text)
-    command = parse_command(output)
-    assert command == "go to"
-
 def test_take_off():
     text = "Take off from where you are."
     output = get_command(text)
