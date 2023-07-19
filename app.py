@@ -1,14 +1,12 @@
 import openai
 import gradio as gr
 import chatgpt4uavs
-from maps import AddressLocator
 from prompts import prompt_chat_response
 from fewshot import FewShot4UAVs
 
 openai.api_key = "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"
 
 fewshot = FewShot4UAVs()
-address_locator = AddressLocator()
 
 def transcribe(audio):
     messages = [
@@ -21,10 +19,6 @@ def transcribe(audio):
 
     # formatted_command_text = chatgpt4uavs.get_command(transcript["text"])
     formatted_command_text = fewshot.get_command(transcript["text"])
-    location = address_locator.get_location(formatted_command_text)
-
-    if location is not None:
-        formatted_command_text = formatted_command_text.replace("<location>", location)
 
     messages.append({"role": "user", "content": formatted_command_text})
 
