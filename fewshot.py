@@ -4,6 +4,7 @@ from langchain.prompts import PromptTemplate
 from langchain.prompts.few_shot import FewShotPromptTemplate
 from langchain.chains import LLMChain
 from langchain.chains import SimpleSequentialChain
+from maps import AddressLocator
 from prompts import prompt_transcribe, prompt_command, examples_few_shot
 
 
@@ -31,6 +32,7 @@ class FewShot4UAVs:
             input_variables=["sentence","command"],
             template="sentence: {sentence}\n{command}"
         )
+
         few_shot_prompt = FewShotPromptTemplate(
             examples=examples_few_shot, 
             example_prompt=command, 
