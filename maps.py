@@ -32,7 +32,9 @@ class AddressLocator:
         now = datetime.now()
         directions_result = self.maps.directions(uav_location, destination,
                                                  mode="driving",
-                                                 departure_time=now)
+                                                 optimize_waypoints=True,
+                                                 departure_time=now
+                                                 )
 
         directions = directions_result[0]['legs'][0]['steps']
         instructions = [step['html_instructions'] for step in directions]
