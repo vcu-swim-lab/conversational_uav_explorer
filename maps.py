@@ -28,9 +28,9 @@ class AddressLocator:
         return None
 
     # Takes the name of a place and returns the route from one location to a single destination
-    def compute_route(self, starting_point, destination):
+    def compute_route(self, uav_location, destination):
         now = datetime.now()
-        directions_result = self.maps.directions(starting_point, destination,
+        directions_result = self.maps.directions(uav_location, destination,
                                                  mode="driving",
                                                  departure_time=now)
 
@@ -45,10 +45,19 @@ class AddressLocator:
         clean = re.compile('<.*?>')
         return re.sub(clean, '', text)
 
+
 # Testing
 address_locator = AddressLocator()
-loc = address_locator.get_location("Go to Chick-fil-a")
-loc2 = address_locator.get_location("Go to Roots")
+
+# Placeholder
+# uav_location = "Current location"
+
+loc = address_locator.get_location("Go to Chick-fil-a on W Broad St")
+print(loc)
+
+loc2 = address_locator.get_location("Go to Roots on W Grace St")
+print(loc2)
+
 res = address_locator.compute_route(loc, loc2)
 
 for direction in res:
