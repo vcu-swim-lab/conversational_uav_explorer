@@ -20,22 +20,21 @@ class FewShot4UAVs:
         )
 
         sentence_chain = LLMChain(llm=self.llm,
-                                prompt=transcribe_prompt,
-                                output_key="sentence")
+                                  prompt=transcribe_prompt,
+                                  output_key="sentence")
 
         return sentence_chain
 
-
     def format_command(self, chain):
         command = PromptTemplate(
-            input_variables=["sentence","command"],
+            input_variables=["sentence", "command"],
             template="sentence: {sentence}\n{command}"
         )
 
         few_shot_prompt = FewShotPromptTemplate(
-            examples=examples_few_shot, 
-            example_prompt=command, 
-            suffix="sentence: {sentence}", 
+            examples=examples_few_shot,
+            example_prompt=command,
+            suffix="sentence: {sentence}",
             input_variables=["sentence"]
         )
 
@@ -50,12 +49,14 @@ class FewShot4UAVs:
         return sentence_command_chain
 
     def to_file(self, text):
-        f = open("commands.txt", "a")
-        f.write(text)
-        f.close()
+        try:
+            with open("commands.txt", "w") as f:
+                f.write(text)
+                print("Command successfully written to the file.")
+        except Exception as e:
+            print(f"Error: {e}")
 
     def get_command(self, text):
         command = self.format_command(self.get_transcription(text))
         self.to_file(command.run(text))
         return command.run(text)
-
