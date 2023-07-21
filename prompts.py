@@ -197,4 +197,12 @@ examples_few_shot = [
         "sentence": "Make your way to.",
         "command": "None"""
     },
+    {
+        "sentence": "Go to the purple house on to the left and take a pciture",
+        "command": "command: go to \tpurple house on to the left\ncommand: take picture \tpurple house on to the left"
+    },
+    {
+        "sentence": "Go to Kroger on Iron Bridge and take a picure",
+        "command": "command: go to \tKroger on Iron Bridge\ncommand: take picture \tKroger on Iron Bridge"
+    }
 ]
