@@ -12,16 +12,16 @@ You are going to be given a sentence command, you need to find the action of
 the sentence. The action will be, Take Picture, Take Off, Land or Go To. If the 
 action is not one of those actions return "None. If the action is "Take Off", 
 "Land" or "None" you don't need any further information for the location. If 
-the action is "Go To" or "Take Picture" you'll need to find where to carry out 
-the action. If the action is "Go To" with no location following return "None". If you get 
-a location without the actions "Go To" or "Take Picture" return "None". If you 
-can't find the actions Take Picture, Take Off, Land, or Go To return "None". When
-analyzing the sentence do NOT infer words that are not there. 
-Do not infer any action that is not explicitly stated.
-You need to return the command in this format: command <command> \t <goal>
+the action is "Go To" or "Take Picture", you'll need to find where to carry out 
+the action. If the action is "Go To" or "Take Picture" with no location following return "None".
+
+If you can't find the actions Take Picture, Take Off, Land, or Go To, return "None". 
+
+You need to return the command in this format: command <command> \t<goal>
+
 However, if you get a sentence with multiple commands here is what you need to do:
 For example take the sentence, "Go to the Walmart in Petersburg and take a picture."
-The format of the command needs to be: command <first command> \t <goal>\n\n<second command> \t <goal>
+The format of the command needs to be: command <first command> \t<goal>\n\n<second command> \t<goal>
 
 Sentence: {sentence}
 """
@@ -37,66 +37,44 @@ needed, and provide updates on the execution status of the given commands.
 # Creating examples for each command that the llm can use to help format our commands.
 # Also passing the transcription to the Command Prompt Template.
 examples_few_shot = [
-    {
-        "sentence": "Go to Papa Johns at 1200 W Main St.",
-        "command": "command: go to \tPapa Johns at 1200 W Main St"""
-    },
-    {
-        "sentence": "Go to the orange house on W Grace St.",
-        "command": "command: go to \torange house on W Grace St"""
-    },
-    {
-        "sentence": "Travel to Cabell Library at VCU.",
-        "command": "command: go to \tCabell Library at VCU"""
-    },
+    # Location only
     {
         "sentence": "Kroger on N Lombardy St.",
-        "command": "None"""
+        "command": "command: go to \tKroger on N Lombardy St"""
     },
     {
         "sentence": "CVS at Main St.",
-        "command": "None"""
+        "command": "command: go to \tCVS at Main St"""
     },
     {
         "sentence": "Short Pump Town Center.",
-        "command": "None"""
+        "command": "command: go to \tShort Pump Town Center"""
     },
     {
         "sentence": "Can Can Brasserie.",
-        "command": "None"""
+        "command": "command: go to \tCan Can Brasserie"""
     },
     {
         "sentence": "Walgreens.",
-        "command": "None"""
-    },
-    {
-        "sentence": "Travel to.",
-        "command": "None"""
-    },
-    {
-        "sentence": "Go to.",
-        "command": "None"""
+        "command": "command: go to \tWalgreens"""
     },
     {
         "sentence": "Best Buy in Colonial Heights.",
-        "command": "None"""
+        "command": "command: go to \tBest Buy in Colonial Heights"""
     },
     {
         "sentence": "The red house to the left.",
-        "command": "None"""
-    },
-    {
-        "sentence": "Right where you are.",
-        "command": "None"""
+        "command": "command: go to \tred house to the left"""
     },
     {
         "sentence": "The Science Museum.",
-        "command": "None"""
+        "command": "command: go to \tScience Museum"""
     },
     {
         "sentence": "South Park Mall.",
-        "command": "None"""
+        "command": "command: go to \tSouth Park Mall"""
     },
+    # Commands that don't require a location
     {
         "sentence": "Take off now.",
         "command": "command: take off"""
@@ -126,12 +104,12 @@ examples_few_shot = [
         "command": "command: land"
     },
     {
-        "sentence": "Take a picture.",
-        "command": "None"
+        "sentence": "Cease flight.",
+        "command": "command: land"
     },
     {
-        "sentence": "Take a picture when you can please.",
-        "command": "None"
+        "sentence": "Stop the flight.",
+        "command": "command: land"
     },
     {
         "sentence": "Stop flying.",
@@ -141,6 +119,7 @@ examples_few_shot = [
         "sentence": "Take flight.",
         "command": "command: take off"""
     },
+    # Commands that require a location but don't have any
     {
         "sentence": "Take a pic.",
         "command": "None"
@@ -156,30 +135,6 @@ examples_few_shot = [
     {
         "sentence": "Snap a pic.",
         "command": "None"
-    },
-    {
-        "sentence": "Fly to the Sonic on West Cary St.",
-        "command": "command: go to \tSonic on West Cary St."
-    },
-    {
-        "sentence": "Check out the gym at Cary St.",
-        "command": "command: go to \tgym at Cary St"
-    },
-    {
-        "sentence": "Cease flight.",
-        "command": "command: land"
-    },
-    {
-        "sentence": "Stop the flight.",
-        "command": "command: land"
-    },
-    {
-        "sentence": "Investigate the Rite Aid on Broad and Belevidere.",
-        "command": "command: go to \tRite Aid on Broad and Belevidere"
-    },
-    {
-        "sentence": "Please check out the CVS on W Broad St.",
-        "command": "command: go to \tCVS on W Broad St"
     },
     {
         "sentence": "Proceed to.",
@@ -198,11 +153,59 @@ examples_few_shot = [
         "command": "None"""
     },
     {
+        "sentence": "Travel to.",
+        "command": "None"""
+    },
+    {
+        "sentence": "Go to.",
+        "command": "None"""
+    },
+    {
+        "sentence": "Take a picture.",
+        "command": "None"
+    },
+    {
+        "sentence": "Take a picture when you can please.",
+        "command": "None"
+    },
+    # Commands with one action and one location
+    {
+        "sentence": "Fly to the Sonic on West Cary St.",
+        "command": "command: go to \tSonic on West Cary St."
+    },
+    {
+        "sentence": "Check out the gym at Cary St.",
+        "command": "command: go to \tgym at Cary St"
+    },
+    {
+        "sentence": "Investigate the Rite Aid on Broad and Belevidere.",
+        "command": "command: go to \tRite Aid on Broad and Belevidere"
+    },
+    {
+        "sentence": "Go to Papa Johns at 1200 W Main St.",
+        "command": "command: go to \tPapa Johns at 1200 W Main St"""
+    },
+    {
+        "sentence": "Go to the orange house on W Grace St.",
+        "command": "command: go to \torange house on W Grace St"""
+    },
+    {
+        "sentence": "Travel to Cabell Library at VCU.",
+        "command": "command: go to \tCabell Library at VCU"""
+    },
+    # Commands with one action and one location but with extra words
+    {
+        "sentence": "Please check out the CVS on W Broad St.",
+        "command": "command: go to \tCVS on W Broad St"
+    },
+    # Commands with multiple actions
+    {
         "sentence": "Go to the purple house on to the left and take a pciture",
         "command": "command: go to \tpurple house on to the left\ncommand: take picture \tpurple house on to the left"
     },
     {
         "sentence": "Go to Kroger on Iron Bridge and take a picure",
         "command": "command: go to \tKroger on Iron Bridge\ncommand: take picture \tKroger on Iron Bridge"
-    }
+    },
+    # Commands with multiple actions and multiple locations
 ]

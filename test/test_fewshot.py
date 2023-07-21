@@ -141,21 +141,21 @@ def test_location_no_action(fewshot):
     text = "Willow Lawn."
     output = fewshot.get_command(text)
     command = parse_command(output)
-    assert command == "None"
+    assert command == "go to"
 
 
 def test_location_no_action2(fewshot):
     text = "Whole Foods on W Broad St."
     output = fewshot.get_command(text)
     command = parse_command(output)
-    assert command == "None"
+    assert command == "go to"
 
 
 def test_location_no_action3(fewshot):
     text = "Starbucks at N Robinson St."
     output = fewshot.get_command(text)
     command = parse_command(output)
-    assert command == "None"
+    assert command == "go to"
 
 
 def test_with_extra_words(fewshot):
