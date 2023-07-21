@@ -10,17 +10,18 @@ fewshot = FewShot4UAVs()
 
 def transcribe(audio):
     messages = [
-        {"role": "system", 
+        {"role": "system",
          "content": prompt_chat_response}
     ]
 
     audio_file = open(audio, "rb")
     transcript = openai.Audio.transcribe("whisper-1", audio_file)
 
-    # formatted_command_text = chatgpt4uavs.get_command(transcript["text"])
-    formatted_command_text = fewshot.get_command(transcript["text"])
+    original_transcript = transcript["text"]
+    messages.append({"role": "user", "content": original_transcript})
 
-    messages.append({"role": "user", "content": formatted_command_text})
+    formatted_command_text = fewshot.get_command(original_transcript)
+    messages.append({"role": "function", "content": formatted_command_text, "name": "UAV"})
 
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -28,7 +29,6 @@ def transcribe(audio):
     )
 
     uav_response = response["choices"][0]["message"]["content"]
-
     messages.append({"role": "assistant", "content": uav_response})
 
     chat_transcript = ""
