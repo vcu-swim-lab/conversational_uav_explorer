@@ -54,7 +54,9 @@ with gr.Blocks(theme='sudeepshouche/minimalist') as demo:
     with gr.Accordion("Examples:"):
         gr.Markdown("Take a picture of the second floor of the green house.\n\n"
                     "Go to the brick house across the street.\n\n"
-                    "Land now.\n\n"
-                    "Take off.")
+                    "Head to Libby Hill Park on E Franklin St.\n\n"
+                    "Check out the Whole Foods on W Broad St.\n\n"
+                    "Take off at your position.\n\n"
+                    "Land now.")
 
 demo.launch(share=True)
