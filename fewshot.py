@@ -50,7 +50,7 @@ class FewShot4UAVs:
         return sentence_command_chain
 
     def to_file(self, text):
-        f = open("commands.txt", "w")
+        f = open("commands.txt", "a")
         f.write(text)
         f.close()
 
