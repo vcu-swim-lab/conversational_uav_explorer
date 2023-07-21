@@ -50,14 +50,14 @@ def test_picture(fewshot):
     text = "Take a picture."
     output = fewshot.get_command(text)
     command = parse_command(output)
-    assert command == "take picture"
+    assert command == "None"
 
 
 def test_snap_pic(fewshot):
     text = "Snap a photo."
     output = fewshot.get_command(text)
     command = parse_command(output)
-    assert command == "take picture"
+    assert command == "None"
 
 
 def test_purple_house(fewshot):
@@ -103,21 +103,21 @@ def test_no_location1(fewshot):
 
 
 def test_no_location2(fewshot):
-    text = "Go to"
+    text = "Go to."
     output = fewshot.get_command(text)
     command = parse_command(output)
     assert command == "None"
 
 
 def test_no_location3(fewshot):
-    text = "Travel to"
+    text = "Travel to."
     output = fewshot.get_command(text)
     command = parse_command(output)
     assert command == "None"
 
 
 def test_no_location4(fewshot):
-    text = "Head to"
+    text = "Head to."
     output = fewshot.get_command(text)
     command = parse_command(output)
     assert command == "None"
@@ -131,41 +131,41 @@ def test_empty_input(fewshot):
 
 
 def test_invalid_command(fewshot):
-    text = "Do something"
+    text = "Do something."
     output = fewshot.get_command(text)
     command = parse_command(output)
     assert command == "None"
 
 
 def test_location_no_action(fewshot):
-    text = "Willow Lawn"
+    text = "Willow Lawn."
     output = fewshot.get_command(text)
     command = parse_command(output)
     assert command == "None"
 
 
 def test_location_no_action2(fewshot):
-    text = "Whole Foods on W Broad St"
+    text = "Whole Foods on W Broad St."
     output = fewshot.get_command(text)
     command = parse_command(output)
     assert command == "None"
 
 
 def test_location_no_action3(fewshot):
-    text = "Starbucks at N Robinson St"
+    text = "Starbucks at N Robinson St."
     output = fewshot.get_command(text)
     command = parse_command(output)
     assert command == "None"
 
 
 def test_with_extra_words(fewshot):
-    text = "Please go to the Whole Foods on W Broad St"
+    text = "Please go to the Whole Foods on W Broad St."
     output = fewshot.get_command(text)
     command = parse_command(output)
     assert command == "go to"
 
 def test_with_extra_words2(fewshot):
-    text = "Go to the Whole Foods on W Broad St please"
+    text = "Go to the Whole Foods on W Broad St please."
     output = fewshot.get_command(text)
     command = parse_command(output)
     assert command == "go to"

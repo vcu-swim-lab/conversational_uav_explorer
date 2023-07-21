@@ -38,63 +38,63 @@ needed, and provide updates on the execution status of the given commands.
 # Also passing the transcription to the Command Prompt Template.
 examples_few_shot = [
     {
-        "sentence": "Go to Papa Johns at 1200 W Main St",
+        "sentence": "Go to Papa Johns at 1200 W Main St.",
         "command": "command: go to \tPapa Johns at 1200 W Main St"""
     },
     {
-        "sentence": "Go to the orange house on W Grace St",
+        "sentence": "Go to the orange house on W Grace St.",
         "command": "command: go to \torange house on W Grace St"""
     },
     {
-        "sentence": "Travel to Cabell Library at VCU",
+        "sentence": "Travel to Cabell Library at VCU.",
         "command": "command: go to \tCabell Library at VCU"""
     },
     {
-        "sentence": "Kroger on N Lombardy St",
+        "sentence": "Kroger on N Lombardy St.",
         "command": "None"""
     },
     {
-        "sentence": "CVS at Main St",
+        "sentence": "CVS at Main St.",
         "command": "None"""
     },
     {
-        "sentence": "Short Pump Town Center",
+        "sentence": "Short Pump Town Center.",
         "command": "None"""
     },
     {
-        "sentence": "Can Can Brasserie",
+        "sentence": "Can Can Brasserie.",
         "command": "None"""
     },
     {
-        "sentence": "Walgreens",
+        "sentence": "Walgreens.",
         "command": "None"""
     },
     {
-        "sentence": "Travel to",
+        "sentence": "Travel to.",
         "command": "None"""
     },
     {
-        "sentence": "Go to",
+        "sentence": "Go to.",
         "command": "None"""
     },
     {
-        "sentence": "Best Buy in Colonial Heights",
+        "sentence": "Best Buy in Colonial Heights.",
         "command": "None"""
     },
     {
-        "sentence": "The red house to the left",
+        "sentence": "The red house to the left.",
         "command": "None"""
     },
     {
-        "sentence": "Right where you are",
+        "sentence": "Right where you are.",
         "command": "None"""
     },
     {
-        "sentence": "The Science Museum",
+        "sentence": "The Science Museum.",
         "command": "None"""
     },
     {
-        "sentence": "South Park Mall",
+        "sentence": "South Park Mall.",
         "command": "None"""
     },
     {
@@ -127,35 +127,35 @@ examples_few_shot = [
     },
     {
         "sentence": "Take a picture.",
-        "command": "command: take picture"
+        "command": "None"
     },
     {
         "sentence": "Take a picture when you can please.",
-        "command": "command: take picture"
+        "command": "None"
     },
     {
-        "sentence": "Stop flying",
+        "sentence": "Stop flying.",
         "command": "command: land"""
     },
     {
-        "sentence": "Take flight",
+        "sentence": "Take flight.",
         "command": "command: take off"""
     },
     {
         "sentence": "Take a pic.",
-        "command": "command: take picture"
+        "command": "None"
     },
     {
         "sentence": "Take a photo.",
-        "command": "command: take picture"
+        "command": "None"
     },
     {
         "sentence": "Snap a photo.",
-        "command": "command: take picture"
+        "command": "None"
     },
     {
         "sentence": "Snap a pic.",
-        "command": "command: take picture"
+        "command": "None"
     },
     {
         "sentence": "Fly to the Sonic on West Cary St.",
@@ -166,11 +166,11 @@ examples_few_shot = [
         "command": "command: go to \tgym at Cary St"
     },
     {
-        "sentence": "Cease flight",
+        "sentence": "Cease flight.",
         "command": "command: land"
     },
     {
-        "sentence": "Stop the flight",
+        "sentence": "Stop the flight.",
         "command": "command: land"
     },
     {
@@ -182,19 +182,19 @@ examples_few_shot = [
         "command": "command: go to \tCVS on W Broad St"
     },
     {
-        "sentence": "Proceed to",
+        "sentence": "Proceed to.",
         "command": "None"""
     },
     {
-        "sentence": "Push to",
+        "sentence": "Push to.",
         "command": "None"""
     },
     {
-        "sentence": "Advance to",
+        "sentence": "Advance to.",
         "command": "None"""
     },
     {
-        "sentence": "Make your way to",
+        "sentence": "Make your way to.",
         "command": "None"""
     },
 ]
