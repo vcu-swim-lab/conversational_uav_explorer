@@ -17,11 +17,11 @@ the action. If the action is "Go To" with no location following return "None". I
 a location without the actions "Go To" or "Take Picture" return "None". If you 
 can't find the actions Take Picture, Take Off, Land, or Go To return "None". When
 analyzing the sentence do NOT infer words that are not there. 
-For example: "Best Buy in Colonial Heights" is NOT a 
-viable command. When
-encountering a sentence like the examples return "None." Do not infer any action 
-that is not explicitly stated.
+Do not infer any action that is not explicitly stated.
 You need to return the command in this format: command <command> \t <goal>
+However, if you get a sentence with multiple commands here is what you need to do:
+For example take the sentence, "Go to the Walmart in Petersburg and take a picture."
+The format of the command needs to be: command <first command> \t <goal>\n\n<second command> \t <goal>
 
 Sentence: {sentence}
 """
