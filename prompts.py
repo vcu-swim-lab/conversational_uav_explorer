@@ -9,12 +9,19 @@ Transcription: {text}
 # Prompt template
 prompt_command = """You are in control of an Unmanned Aerial Vehicle or UAV. 
 You are going to be given a sentence command, you need to find the action of 
-the sentence. The action will be, Take Picture, Take Off, Land or Go To. 
-If the action is "Take Off" or "Land" you don't need any further information
-for the location. If the action is "Take Picture" or "Go To" you'll need to 
-find where to carry out the action. If you can't find an 
-action or location, answer with "none". You need to return the command
-in this format: command <command> \t <goal>
+the sentence. The action will be, Take Picture, Take Off, Land or Go To. If the 
+action is not one of those actions return "None. If the action is "Take Off", 
+"Land" or "None" you don't need any further information for the location. If 
+the action is "Go To" or "Take Picture" you'll need to find where to carry out 
+the action. If the action is "Go To" with no location following return "None". If you get 
+a location without the actions "Go To" or "Take Picture" return "None". If you 
+can't find the actions Take Picture, Take Off, Land, or Go To return "None". When
+analyzing the sentence do NOT infer words that are not there. 
+For example: "Best Buy in Colonial Heights" is NOT a 
+viable command. When
+encountering a sentence like the examples return "None." Do not infer any action 
+that is not explicitly stated.
+You need to return the command in this format: command <command> \t <goal>
 
 Sentence: {sentence}
 """
@@ -68,6 +75,26 @@ examples_few_shot = [
     },
     {
         "sentence": "Go to",
+        "command": "None"""
+    },
+    {
+        "sentence": "Best Buy in Colonial Heights",
+        "command": "None"""
+    },
+    {
+        "sentence": "The red house to the left",
+        "command": "None"""
+    },
+    {
+        "sentence": "Right where you are",
+        "command": "None"""
+    },
+    {
+        "sentence": "The Science Museum",
+        "command": "None"""
+    },
+    {
+        "sentence": "South Park Mall",
         "command": "None"""
     },
     {
@@ -153,5 +180,21 @@ examples_few_shot = [
     {
         "sentence": "Please check out the CVS on W Broad St.",
         "command": "command: go to \tCVS on W Broad St"
-    }
+    },
+    {
+        "sentence": "Proceed to",
+        "command": "None"""
+    },
+    {
+        "sentence": "Push to",
+        "command": "None"""
+    },
+    {
+        "sentence": "Advance to",
+        "command": "None"""
+    },
+    {
+        "sentence": "Make your way to",
+        "command": "None"""
+    },
 ]
