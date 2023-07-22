@@ -18,6 +18,13 @@ def parse_command(text):
         return 'none'
 
 
+def parse_multiple_commands(text):
+    text = text.lstrip('\n')
+    lines = text.split("\n")
+    first_action = lines[0].split()[0].lower()
+    second_action = lines[1].split()[0].lower()
+    return first_action, second_action
+
 def test_red_house(fewshot):
     text = "Go to the red house on W Broad St."
     output = fewshot.get_command(text)
