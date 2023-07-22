@@ -40,172 +40,172 @@ examples_few_shot = [
     # Location only
     {
         "sentence": "Kroger on N Lombardy St.",
-        "command": "command: go to \tKroger on N Lombardy St"""
+        "command": "command: GOTO \tKroger on N Lombardy St"""
     },
     {
         "sentence": "CVS at Main St.",
-        "command": "command: go to \tCVS at Main St"""
+        "command": "command: GOTO \tCVS at Main St"""
     },
     {
         "sentence": "Short Pump Town Center.",
-        "command": "command: go to \tShort Pump Town Center"""
+        "command": "command: GOTO \tShort Pump Town Center"""
     },
     {
         "sentence": "Can Can Brasserie.",
-        "command": "command: go to \tCan Can Brasserie"""
+        "command": "command: GOTO \tCan Can Brasserie"""
     },
     {
         "sentence": "Walgreens.",
-        "command": "command: go to \tWalgreens"""
+        "command": "command: GOTO \tWalgreens"""
     },
     {
         "sentence": "Best Buy in Colonial Heights.",
-        "command": "command: go to \tBest Buy in Colonial Heights"""
+        "command": "command: GOTO \tBest Buy in Colonial Heights"""
     },
     {
         "sentence": "The red house to the left.",
-        "command": "command: go to \tred house to the left"""
+        "command": "command: GOTO \tred house to the left"""
     },
     {
         "sentence": "The Science Museum.",
-        "command": "command: go to \tScience Museum"""
+        "command": "command: GOTO \tScience Museum"""
     },
     {
         "sentence": "South Park Mall.",
-        "command": "command: go to \tSouth Park Mall"""
+        "command": "command: GOTO \tSouth Park Mall"""
     },
     # Commands that don't require a location
     {
         "sentence": "Take off now.",
-        "command": "command: take off"""
+        "command": "command: TAKEOFF"""
     },
     {
         "sentence": "Take off from where you are.",
-        "command": "command: take off"
+        "command": "command: TAKEOFF"
     },
     {
         "sentence": "Take off.",
-        "command": "command: take off"
+        "command": "command: TAKEOFF"
     },
     {
         "sentence": "Take off at your position.",
-        "command": "command: take off"
+        "command": "command: TAKEOFF"
     },
     {
         "sentence": "Take off from where you are at.",
-        "command": "command: take off"
+        "command": "command: TAKEOFF"
     },
     {
         "sentence": "Lift off.",
-        "command": "command: take off"
+        "command": "command: TAKEOFF"
     },
     {
         "sentence": "Land now.",
-        "command": "command: land"
+        "command": "command: LAND"
     },
     {
         "sentence": "Cease flight.",
-        "command": "command: land"
+        "command": "command: LAND"
     },
     {
         "sentence": "Stop the flight.",
-        "command": "command: land"
+        "command": "command: LAND"
     },
     {
         "sentence": "Stop flying.",
-        "command": "command: land"""
+        "command": "command: LAND"""
     },
     {
         "sentence": "Take flight.",
-        "command": "command: take off"""
+        "command": "command: TAKEOFF"""
     },
     # Commands that require a location but don't have any
     {
         "sentence": "Take a pic.",
-        "command": "None"
+        "command": "NONE"
     },
     {
         "sentence": "Take a photo.",
-        "command": "None"
+        "command": "NONE"
     },
     {
         "sentence": "Snap a photo.",
-        "command": "None"
+        "command": "NONE"
     },
     {
         "sentence": "Snap a pic.",
-        "command": "None"
+        "command": "NONE"
     },
     {
         "sentence": "Proceed to.",
-        "command": "None"""
+        "command": "NONE"""
     },
     {
         "sentence": "Push to.",
-        "command": "None"""
+        "command": "NONE"""
     },
     {
         "sentence": "Advance to.",
-        "command": "None"""
+        "command": "NONE"""
     },
     {
         "sentence": "Make your way to.",
-        "command": "None"""
+        "command": "NONE"""
     },
     {
         "sentence": "Travel to.",
-        "command": "None"""
+        "command": "NONE"""
     },
     {
         "sentence": "Go to.",
-        "command": "None"""
+        "command": "NONE"""
     },
     {
         "sentence": "Take a picture.",
-        "command": "None"
+        "command": "NONE"
     },
     {
         "sentence": "Take a picture when you can please.",
-        "command": "None"
+        "command": "NONE"
     },
     # Commands with one action and one location
     {
         "sentence": "Fly to the Sonic on West Cary St.",
-        "command": "command: go to \tSonic on West Cary St."
+        "command": "command: GOTO \tSonic on West Cary St."
     },
     {
         "sentence": "Check out the gym at Cary St.",
-        "command": "command: go to \tgym at Cary St"
+        "command": "command: GOTO \tgym at Cary St"
     },
     {
         "sentence": "Investigate the Rite Aid on Broad and Belevidere.",
-        "command": "command: go to \tRite Aid on Broad and Belevidere"
+        "command": "command: GOTO \tRite Aid on Broad and Belevidere"
     },
     {
         "sentence": "Go to Papa Johns at 1200 W Main St.",
-        "command": "command: go to \tPapa Johns at 1200 W Main St"""
+        "command": "command: GOTO \tPapa Johns at 1200 W Main St"""
     },
     {
         "sentence": "Go to the orange house on W Grace St.",
-        "command": "command: go to \torange house on W Grace St"""
+        "command": "command: GOTO \torange house on W Grace St"""
     },
     {
         "sentence": "Travel to Cabell Library at VCU.",
-        "command": "command: go to \tCabell Library at VCU"""
+        "command": "command: GOTO \tCabell Library at VCU"""
     },
     # Commands with one action and one location but with extra words
     {
         "sentence": "Please check out the CVS on W Broad St.",
-        "command": "command: go to \tCVS on W Broad St"
+        "command": "command: GOTO \tCVS on W Broad St"
     },
     # Commands with multiple actions
     {
         "sentence": "Go to the purple house on to the left and take a pciture",
-        "command": "command: go to \tpurple house on to the left\ncommand: take picture \tpurple house on to the left"
+        "command": "command: GOTO \tpurple house on to the left\ncommand: take picture \tpurple house on to the left"
     },
     {
         "sentence": "Go to Kroger on Iron Bridge and take a picure",
-        "command": "command: go to \tKroger on Iron Bridge\ncommand: take picture \tKroger on Iron Bridge"
+        "command": "command: GOTO \tKroger on Iron Bridge\ncommand: take picture \tKroger on Iron Bridge"
     },
     # Commands with multiple actions and multiple locations
 ]
