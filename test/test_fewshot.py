@@ -184,8 +184,8 @@ def test_with_extra_words2(fewshot):
 def test_multiple_actions(fewshot):
     text = "Take a photo and then take off."
     output = fewshot.get_command(text)
-    command = parse_command(output)
-    assert command == 
+    command = parse_multiple_commands(output)
+    assert command == ('takephoto, takeoff')
 
 
 def test_two_go_to(fewshot):
