@@ -18,7 +18,7 @@ def transcribe(audio):
     transcript = openai.Audio.transcribe("whisper-1", audio_file)
 
     original_transcript = transcript["text"]
-    messages.append({"role": "user", "content": original_transcript})
+    messages.append({"role": "user", "content": original_transcript, "name": "Operator"})
 
     formatted_command_text = fewshot.get_command(original_transcript)
     messages.append({"role": "function", "content": formatted_command_text, "name": "UAV"})
@@ -29,12 +29,12 @@ def transcribe(audio):
     )
 
     uav_response = response["choices"][0]["message"]["content"]
-    messages.append({"role": "assistant", "content": uav_response})
+    messages.append({"role": "assistant", "content": uav_response, "name": "Assistant"})
 
     chat_transcript = ""
     for message in messages:
         if message['role'] != 'system':
-            chat_transcript += message['role'] + ": " + message['content'] + "\n\n"
+            chat_transcript += message['name'] + ": " + message['content'] + "\n\n"
 
     return chat_transcript
 
