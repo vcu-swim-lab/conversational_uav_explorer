@@ -42,7 +42,7 @@ def transcribe(audio):
 with gr.Blocks(theme='sudeepshouche/minimalist') as demo:
     gr.Markdown("""
     # Conversational UAV Explorer
-    Press record and peak into the microphone to give a command. Make sure to stop recording before pressing "Give Command."\n\n
+    Press record and speak into the microphone to give a command. Make sure to stop recording before pressing "Give Command."\n\n
     Commands: Take picture, Go to, Land, Take off""")
     with gr.Row().style():
         audio_input = gr.Audio(source="microphone", type="filepath")
