@@ -9,16 +9,14 @@ Transcription: {text}
 # Prompt template
 prompt_command = """You are in control of an Unmanned Aerial Vehicle or UAV. 
 You are going to be given a sentence command, you need to find the action of 
-the sentence. The action will be, "TAKEPICTURE" (Take picture), "TAKEOFF" (Take off), "LAND" (Land) or "GOTO" (Go to). 
+the sentence. The action will be, TAKEPICTURE, TAKEOFF, LAND or GOTO. If the 
+action is not one of those actions return "NONE". ONLY give those commands or 
+"NONE", NEVER anything else. If the action is "TAKEOFF", "LAND" or "NONE" you 
+don't need any further information for the location. If the action is "GOTO" or
+"TAKEPICTURE", you'll need to find where to carry out the action. If the action 
+is "GOTO" or "TAKEPICTURE" with no location following return "None".
 
-If the action is not one of those actions return "NONE". 
-
-If the action is "TAKEOFF" (Take off), "LAND" (Land), or "NONE" you don't need any further information for the location. 
-If the action is "GOTO" (Go to) or "TAKEPICTURE" (Take picture), you'll need to find where to carry out the action. 
-
-If the action is "GOTO" (Go to) or "TAKEPICTURE" (Take picture) with no location following it, return "NONE".
-
-If you can't find the actions "TAKEPICTURE" (Take picture), "TAKEOFF" (Take off), "LAND" (Land), or "GOTO" (Go to), return "NONE". 
+If you can't find the actions Take Picture, Take Off, Land, or Go To, return "NONE". 
 
 You need to return the command in this format: <command> \t<goal>
 
@@ -43,84 +41,84 @@ examples_few_shot = [
     # Location only
     {
         "sentence": "Kroger on N Lombardy St.",
-        "command": "GOTO \tKroger on N Lombardy St"
+        "command": "command: GOTO \tKroger on N Lombardy St"""
     },
     {
         "sentence": "CVS at Main St.",
-        "command": "GOTO \tCVS at Main St"
+        "command": "command: GOTO \tCVS at Main St"""
     },
     {
         "sentence": "Short Pump Town Center.",
-        "command": "GOTO \tShort Pump Town Center"
+        "command": "command: GOTO \tShort Pump Town Center"""
     },
     {
         "sentence": "Can Can Brasserie.",
-        "command": "GOTO \tCan Can Brasserie"
+        "command": "command: GOTO \tCan Can Brasserie"""
     },
     {
         "sentence": "Walgreens.",
-        "command": "GOTO \tWalgreens"
+        "command": "command: GOTO \tWalgreens"""
     },
     {
         "sentence": "Best Buy in Colonial Heights.",
-        "command": "GOTO \tBest Buy in Colonial Heights"
+        "command": "command: GOTO \tBest Buy in Colonial Heights"""
     },
     {
         "sentence": "The red house to the left.",
-        "command": "GOTO \tred house to the left"
+        "command": "command: GOTO \tred house to the left"""
     },
     {
         "sentence": "The Science Museum.",
-        "command": "GOTO \tScience Museum"
+        "command": "command: GOTO \tScience Museum"""
     },
     {
         "sentence": "South Park Mall.",
-        "command": "GOTO \tSouth Park Mall"
+        "command": "command: GOTO \tSouth Park Mall"""
     },
     # Commands that don't require a location
     {
         "sentence": "Take off now.",
-        "command": "TAKEOFF"
+        "command": "command: TAKEOFF"""
     },
     {
         "sentence": "Take off from where you are.",
-        "command": "TAKEOFF"
+        "command": "command: TAKEOFF"
     },
     {
         "sentence": "Take off.",
-        "command": "TAKEOFF"
+        "command": "command: TAKEOFF"
     },
     {
         "sentence": "Take off at your position.",
-        "command": "TAKEOFF"
+        "command": "command: TAKEOFF"
     },
     {
         "sentence": "Take off from where you are at.",
-        "command": "TAKEOFF"
+        "command": "command: TAKEOFF"
     },
     {
         "sentence": "Lift off.",
-        "command": "TAKEOFF"
+        "command": "command: TAKEOFF"
     },
     {
         "sentence": "Land now.",
-        "command": "LAND"
+        "command": "command: LAND"
     },
     {
         "sentence": "Cease flight.",
-        "command": "LAND"
+        "command": "command: LAND"
     },
     {
         "sentence": "Stop the flight.",
-        "command": "LAND"
+        "command": "command: LAND"
     },
     {
         "sentence": "Stop flying.",
-        "command": "LAND"
+        "command": "command: LAND"""
     },
     {
         "sentence": "Take flight.",
-        "command": "TAKEOFF"
+        "command": "command: TAKEOFF"""
     },
     # Commands that require a location but don't have any
     {
@@ -141,27 +139,27 @@ examples_few_shot = [
     },
     {
         "sentence": "Proceed to.",
-        "command": "NONE"
+        "command": "NONE"""
     },
     {
         "sentence": "Push to.",
-        "command": "NONE"
+        "command": "NONE"""
     },
     {
         "sentence": "Advance to.",
-        "command": "NONE"
+        "command": "NONE"""
     },
     {
         "sentence": "Make your way to.",
-        "command": "NONE"
+        "command": "NONE"""
     },
     {
         "sentence": "Travel to.",
-        "command": "NONE"
+        "command": "NONE"""
     },
     {
         "sentence": "Go to.",
-        "command": "NONE"
+        "command": "NONE"""
     },
     {
         "sentence": "Take a picture.",
@@ -174,49 +172,65 @@ examples_few_shot = [
     # Commands with one action and one location
     {
         "sentence": "Fly to the Sonic on West Cary St.",
-        "command": "GOTO \tSonic on West Cary St."
+        "command": "command: GOTO \tSonic on West Cary St."
     },
     {
         "sentence": "Check out the gym at Cary St.",
-        "command": "GOTO \tgym at Cary St"
+        "command": "command: GOTO \tgym at Cary St"
     },
     {
         "sentence": "Investigate the Rite Aid on Broad and Belevidere.",
-        "command": "GOTO \tRite Aid on Broad and Belevidere"
+        "command": "command: GOTO \tRite Aid on Broad and Belevidere"
     },
     {
         "sentence": "Go to Papa Johns at 1200 W Main St.",
-        "command": "GOTO \tPapa Johns at 1200 W Main St"
+        "command": "command: GOTO \tPapa Johns at 1200 W Main St"""
     },
     {
         "sentence": "Go to the orange house on W Grace St.",
-        "command": "GOTO \torange house on W Grace St"
+        "command": "command: GOTO \torange house on W Grace St"""
     },
     {
         "sentence": "Travel to Cabell Library at VCU.",
-        "command": "GOTO \tCabell Library at VCU"
-    },
-    {
-        "sentence": "Take a picture of the park.",
-        "command": "TAKEPICTURE \tpark"
-    },
-    {
-        "sentence": "Take a picture of the Kroger on Lombardy St.",
-        "command": "TAKEPICTURE \tKroger on Lombardy St"
+        "command": "command: GOTO \tCabell Library at VCU"""
     },
     # Commands with one action and one location but with extra words
     {
         "sentence": "Please check out the CVS on W Broad St.",
-        "command": "GOTO \tCVS on W Broad St"
+        "command": "command: GOTO \tCVS on W Broad St"
     },
     # Commands with multiple actions
     {
-        "sentence": "Go to the purple house on to the left and take a pciture",
-        "command": "GOTO \tpurple house on to the left\nTAKEPICTURE \tpurple house on to the left"
+        "sentence": "Go to the purple house on to the left and take a picture",
+        "command": "command: GOTO \tpurple house on to the left\ncommand: TAKEPICTURE \tpurple house on to the left"
     },
     {
-        "sentence": "Go to Kroger on Iron Bridge and take a picure",
-        "command": "GOTO \tKroger on Iron Bridge\nTAKEPICTURE \tKroger on Iron Bridge"
+        "sentence": "Fly to Kroger on Iron Bridge and take a picure",
+        "command": "command: GOTO \tKroger on Iron Bridge\ncommand: TAKEPICTURE \tKroger on Iron Bridge"
+    },
+    {
+        "sentence": "Travel to the McDonalds on Route 1 and land",
+        "command": "command: GOTO \tMcDonalds on Route 1\ncommand: LAND"
+    },
+    {
+        "sentence": "Take off, go to the Walgreens on W Hundred Rd, then land",
+        "command": "command: TAKEOFF\ncommand: GOTO \tWalgreens on W Hundred Rd\ncommand: LAND"
     },
     # Commands with multiple actions and multiple locations
+    {
+        "sentence": "Take a picture of the light blue building on Harrowgate Road, then go to the Wawa on Route 1",
+        "command": "command: TAKEPICTURE \tlight blue building on Harrowgate Road\ncommand: GOTO \tWawa on Route 1"
+    },
+    {
+        "sentence": "Check out the yellow house on Clay St, then go to the Commons on W Main St",
+        "command": "command: GOTO \tyellow house on Clay St\ncommand: GOTO \tCommons on W Main St"
+    },
+    {
+        "sentence": "Investigate the 7/11 on W Grace St, then go to the Barnes and Noble on W Broad St, then take a picture of it.",
+        "command": "command: GOTO \t7/11 on W Grace St\ncommand: GOTO \tBarnes and Noble on W Broad S\ncommand: TAKEPICTURE \tBarnes and Noble on W Broad St"
+    },
+    {
+        "sentence": "Go to the grey one story flat on Happy Hill Rd, then go to the Food Lion on the same road, then take a picture of it.",
+        "command": "command: GOTO \tgrey one story flat on Happy Hill Rd\ncommand: GOTO \tFood Lion on Happy Hill Rd\ncommand: TAKEPICTURE \tFood Lion on Happy Hill Rd"
+    }
 ]
