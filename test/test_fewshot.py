@@ -12,10 +12,10 @@ def fewshot():
 def parse_command(text):
     tokens = re.split(' \t|\n|: ', text.lower())
     print(tokens)
-    if len(tokens) >= 2 and tokens[1] == 'command':
-        return tokens[2]
+    if len(tokens) >= 2:
+        return tokens[1]
     else:
-        return 'None'
+        return 'none'
 
 
 def test_red_house(fewshot):
@@ -50,14 +50,14 @@ def test_picture(fewshot):
     text = "Take a picture."
     output = fewshot.get_command(text)
     command = parse_command(output)
-    assert command == "None"
+    assert command == "none"
 
 
 def test_snap_pic(fewshot):
     text = "Snap a photo."
     output = fewshot.get_command(text)
     command = parse_command(output)
-    assert command == "None"
+    assert command == "none"
 
 
 def test_purple_house(fewshot):
@@ -99,42 +99,42 @@ def test_no_location1(fewshot):
     text = "Check out."
     output = fewshot.get_command(text)
     command = parse_command(output)
-    assert command == "None"
+    assert command == "none"
 
 
 def test_no_location2(fewshot):
     text = "Go to."
     output = fewshot.get_command(text)
     command = parse_command(output)
-    assert command == "None"
+    assert command == "none"
 
 
 def test_no_location3(fewshot):
     text = "Travel to."
     output = fewshot.get_command(text)
     command = parse_command(output)
-    assert command == "None"
+    assert command == "none"
 
 
 def test_no_location4(fewshot):
     text = "Head to."
     output = fewshot.get_command(text)
     command = parse_command(output)
-    assert command == "None"
+    assert command == "none"
 
 
 def test_empty_input(fewshot):
     text = ""
     output = fewshot.get_command(text)
     command = parse_command(output)
-    assert command == "None"
+    assert command == "none"
 
 
 def test_invalid_command(fewshot):
     text = "Do something."
     output = fewshot.get_command(text)
     command = parse_command(output)
-    assert command == "None"
+    assert command == "none"
 
 
 def test_location_no_action(fewshot):
