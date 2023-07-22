@@ -9,19 +9,19 @@ Transcription: {text}
 # Prompt template
 prompt_command = """You are in control of an Unmanned Aerial Vehicle or UAV. 
 You are going to be given a sentence command, you need to find the action of 
-the sentence. The action will be, Take Picture, Take Off, Land or Go To. If the 
-action is not one of those actions return "None. If the action is "Take Off", 
-"Land" or "None" you don't need any further information for the location. If 
-the action is "Go To" or "Take Picture", you'll need to find where to carry out 
-the action. If the action is "Go To" or "Take Picture" with no location following return "None".
+the sentence. The action will be, TAKEPICTURE (Take Picture), TAKEOFF (Take Off), LAND or GOTO. If the 
+action is not one of those actions return "NONE". If the action is "TAKEOFF", 
+"LAND" or "NONE" you don't need any further information for the location. If 
+the action is "GOTO" or "TAKEPICTURE", you'll need to find where to carry out 
+the action. If the action is "GOTO" or "TAKEPICTURE" with no location following return "None".
 
-If you can't find the actions Take Picture, Take Off, Land, or Go To, return "None". 
+If you can't find the actions Take Picture, Take Off, Land, or Go To, return "NONE". 
 
-You need to return the command in this format: command <command> \t<goal>
+You need to return the command in this format: <command> \t<goal>
 
 However, if you get a sentence with multiple commands here is what you need to do:
 For example take the sentence, "Go to the Walmart in Petersburg and take a picture."
-The format of the command needs to be: command <first command> \t<goal>\n\n<second command> \t<goal>
+The format of the command needs to be: <first command> \t<goal>\n\n<second command> \t<goal>
 
 Sentence: {sentence}
 """
