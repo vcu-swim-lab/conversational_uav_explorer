@@ -201,28 +201,28 @@ examples_few_shot = [
     },
     # Commands with multiple actions
     {
-        "sentence": "Go to the purple house on to the left and take a picture",
+        "sentence": "Go to the purple house on to the left and take a picture.",
         "command": "command: GOTO \tpurple house on to the left\ncommand: TAKEPICTURE \tpurple house on to the left"
     },
     {
-        "sentence": "Fly to Kroger on Iron Bridge and take a picure",
+        "sentence": "Fly to Kroger on Iron Bridge and take a picture.",
         "command": "command: GOTO \tKroger on Iron Bridge\ncommand: TAKEPICTURE \tKroger on Iron Bridge"
     },
     {
-        "sentence": "Travel to the McDonalds on Route 1 and land",
+        "sentence": "Travel to the McDonalds on Route 1 and land.",
         "command": "command: GOTO \tMcDonalds on Route 1\ncommand: LAND"
     },
     {
-        "sentence": "Take off, go to the Walgreens on W Hundred Rd, then land",
+        "sentence": "Take off, go to the Walgreens on W Hundred Rd, then land.",
         "command": "command: TAKEOFF\ncommand: GOTO \tWalgreens on W Hundred Rd\ncommand: LAND"
     },
     # Commands with multiple actions and multiple locations
     {
-        "sentence": "Take a picture of the light blue building on Harrowgate Road, then go to the Wawa on Route 1",
+        "sentence": "Take a picture of the light blue building on Harrowgate Road, then go to the Wawa on Route 1.",
         "command": "command: TAKEPICTURE \tlight blue building on Harrowgate Road\ncommand: GOTO \tWawa on Route 1"
     },
     {
-        "sentence": "Check out the yellow house on Clay St, then go to the Commons on W Main St",
+        "sentence": "Check out the yellow house on Clay St, then go to the Commons on W Main St.",
         "command": "command: GOTO \tyellow house on Clay St\ncommand: GOTO \tCommons on W Main St"
     },
     {
