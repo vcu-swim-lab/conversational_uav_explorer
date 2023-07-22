@@ -186,19 +186,23 @@ examples_few_shot = [
     },
     {
         "sentence": "Go to Papa Johns at 1200 W Main St.",
-        "command": "GOTO \tPapa Johns at 1200 W Main St"""
+        "command": "GOTO \tPapa Johns at 1200 W Main St"
     },
     {
         "sentence": "Go to the orange house on W Grace St.",
-        "command": "GOTO \torange house on W Grace St"""
+        "command": "GOTO \torange house on W Grace St"
     },
     {
         "sentence": "Travel to Cabell Library at VCU.",
-        "command": "GOTO \tCabell Library at VCU"""
+        "command": "GOTO \tCabell Library at VCU"
     },
     {
         "sentence": "Take a picture of the park.",
-        "command": "TAKEPICTURE \tpark"""
+        "command": "TAKEPICTURE \tpark"
+    },
+    {
+        "sentence": "Take a picture of the Kroger on Lombardy St.",
+        "command": "TAKEPICTURE \tKroger on Lombardy St"
     },
     # Commands with one action and one location but with extra words
     {
