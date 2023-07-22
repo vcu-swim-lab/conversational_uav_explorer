@@ -1,6 +1,5 @@
 import openai
 import gradio as gr
-import chatgpt4uavs
 from prompts import prompt_chat_response
 from fewshot import FewShot4UAVs
 
