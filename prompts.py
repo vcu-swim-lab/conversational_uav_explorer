@@ -201,11 +201,11 @@ examples_few_shot = [
     # Commands with multiple actions
     {
         "sentence": "Go to the purple house on to the left and take a pciture",
-        "command": "command: GOTO \tpurple house on to the left\ncommand: take picture \tpurple house on to the left"
+        "command": "command: GOTO \tpurple house on to the left\ncommand: TAKEPICTURE \tpurple house on to the left"
     },
     {
         "sentence": "Go to Kroger on Iron Bridge and take a picure",
-        "command": "command: GOTO \tKroger on Iron Bridge\ncommand: take picture \tKroger on Iron Bridge"
+        "command": "command: GOTO \tKroger on Iron Bridge\ncommand: TAKEPICTURE \tKroger on Iron Bridge"
     },
     # Commands with multiple actions and multiple locations
 ]
