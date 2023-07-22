@@ -8,6 +8,7 @@ openai.api_key = "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"
 
 fewshot = FewShot4UAVs()
 
+
 def transcribe(audio):
     messages = [
         {"role": "system",
@@ -34,7 +35,7 @@ def transcribe(audio):
     chat_transcript = ""
     for message in messages:
         if message['role'] != 'system':
-            chat_transcript += message['name'] + ": " + message['content'] + "\n\n"
+            chat_transcript += f"{message['name']}: {message['content']} \n\n"
 
     return chat_transcript
 
