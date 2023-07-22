@@ -9,7 +9,7 @@ Transcription: {text}
 # Prompt template
 prompt_command = """You are in control of an Unmanned Aerial Vehicle or UAV. 
 You are going to be given a sentence command, you need to find the action of 
-the sentence. The action will be, TAKEPICTURE (Take Picture), TAKEOFF (Take Off), LAND or GOTO. If the 
+the sentence. The action will be, TAKEPICTURE, TAKEOFF, LAND or GOTO. If the 
 action is not one of those actions return "NONE". If the action is "TAKEOFF", 
 "LAND" or "NONE" you don't need any further information for the location. If 
 the action is "GOTO" or "TAKEPICTURE", you'll need to find where to carry out 
