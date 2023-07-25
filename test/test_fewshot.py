@@ -131,7 +131,7 @@ def test_no_location4(fewshot):
 
 
 def test_empty_input(fewshot):
-    text = "Go somewhere"
+    text = ""
     output = fewshot.get_command(text)
     command = parse_command(output)
     assert command == "none"
@@ -178,57 +178,52 @@ def test_with_extra_words2(fewshot):
     assert command == "goto"
 
 
-
-"""
-
 def test_multiple_actions(fewshot):
     text = "Take a photo and then take off."
     output = fewshot.get_command(text)
     command = parse_multiple_commands(output)
-    assert command == ('takephoto, takeoff')
+    assert command == ('takephoto', 'takeoff')
 
 
 def test_two_go_to(fewshot):
     text = "Go to the Kroger on Lombardy St and then go to Roots on W Grace St."
     output = fewshot.get_command(text)
     command = parse_multiple_commands(output)
-    assert command == ('goto, goto')
+    assert command == ('goto', 'goto')
 
 
 def test_multiple_actions_and_locations(fewshot):
     text = "Fly to the park and take a picture of the red house."
     output = fewshot.get_command(text)
     command = parse_multiple_commands(output)
-    assert command == ('takeoff, goto, takephoto')
+    assert command == ('goto', 'takephoto')
 
 def test_action_and_location(fewshot):
     text = "Fly to the park and take a picture."
     output = fewshot.get_command(text)
     command = parse_multiple_commands(output)
-    assert command == ('takeoff, goto, takephoto')
+    assert command == ('goto', 'takephoto')
 
 def test_action_and_location_synonyms(fewshot):
     text = "Hover and head to the closest park."
     output = fewshot.get_command(text)
     command = parse_multiple_commands(output)
-    assert command == ('none, goto')
+    assert command == ('takeoff', 'goto')
 
 def test_action_synonyms(fewshot):
     text = "Ascend and then take a photo."
     output = fewshot.get_command(text)
     command = parse_multiple_commands(output)
-    assert command == ('takeoff, takephoto')
+    assert command == ('takeoff', 'takephoto')
     
-    def test_action_synonyms(fewshot):
+def test_action_synonyms2(fewshot):
     text = "Descend and then take a photo."
     output = fewshot.get_command(text)
     command = parse_multiple_commands(output)
-    assert command == ('land, takephoto')
+    assert command == ('land', 'takephoto')
     
-    def test_action_synonyms(fewshot):
+def test_action_synonyms3(fewshot):
     text = "Descend"
     output = fewshot.get_command(text)
     command = parse_command(output)
-    assert command == ('land')
-    
-"""
+    assert command == 'land'
