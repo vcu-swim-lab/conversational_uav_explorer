@@ -25,8 +25,6 @@ def get_latest_command():
 class Command(Resource):
     def get(self):
         latest_command = get_latest_command()
-        if latest_command is None:
-            return jsonify
         return jsonify({"latest_command": latest_command})
 
 
