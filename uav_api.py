@@ -2,8 +2,13 @@ from flask import Flask, jsonify
 from flask_restful import Resource, Api
 from gradio_client import Client
 
+
+app = Flask(__name__)
+api = Api(app)
+
+
 def get_latest_command():
-    client = Client("https://d6ae6eb987a2ed6057.gradio.live/")
+    client = Client("http://127.0.0.1:7860")
     result = client.predict(
         "https://github.com/gradio-app/gradio/raw/main/test/test_files/audio_sample.wav",
         api_name="/record"
@@ -17,13 +22,11 @@ def get_latest_command():
     return command
 
 
-app = Flask(__name__)
-api = Api(app)
-
-
 class Command(Resource):
     def get(self):
         latest_command = get_latest_command()
+        if latest_command is None:
+            return jsonify
         return jsonify({"latest_command": latest_command})
 
 
