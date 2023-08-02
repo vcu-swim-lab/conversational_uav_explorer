@@ -59,4 +59,5 @@ with gr.Blocks(theme='sudeepshouche/minimalist') as demo:
                     "Take off at your position.\n\n"
                     "Land now.")
 
-demo.launch(share=True)
+demo.queue()
+demo.launch()
