@@ -3,7 +3,6 @@ import gradio as gr
 from prompts import prompt_chat_response
 from fewshot import FewShot4UAVs
 
-openai.api_key = "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"
 
 fewshot = FewShot4UAVs()
 

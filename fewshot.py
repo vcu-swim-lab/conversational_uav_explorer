@@ -10,7 +10,6 @@ from prompts import prompt_transcribe, prompt_command, examples_few_shot
 class FewShot4UAVs:
 
     def __init__(self) -> None:
-        os.environ["OPENAI_API_KEY"] = "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"
         self.llm = OpenAI(model_name="text-davinci-003", temperature=0.0)
 
     def get_transcription(self, text):
