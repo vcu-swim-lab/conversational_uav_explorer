@@ -1,12 +1,27 @@
 import openai
+import re
 import gradio as gr
 from prompts import prompt_chat_response
 from fewshot import FewShot4UAVs
 
-
 fewshot = FewShot4UAVs()
 
+def send_command(command, location=None):
+    url = f"http://url/{command}"
+    data = {}
+    if location:
+        data["location"] = location
+    response = requests.post(url, json=data)
+    return response.content
 
+def parse_command(text):
+    tokens = re.split(' \t|\n|: ', text.lower())
+    print(tokens)
+    if len(tokens) >= 2:
+        return tokens[1]
+    else:
+        return 'none'
+    
 def transcribe(audio):
     messages = [
         {"role": "system",
@@ -21,6 +36,10 @@ def transcribe(audio):
 
     formatted_command_text = fewshot.get_command(original_transcript)
     messages.append({"role": "function", "content": formatted_command_text, "name": "UAV"})
+
+    # turn on the below to invoke API
+    # command = parse_command(formatted_command_text)
+    # send_command(command)
 
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
