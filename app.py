@@ -86,4 +86,5 @@ with gr.Blocks(theme='sudeepshouche/minimalist') as demo:
                     "Take off.\n\n"
                     "Land.")
 
+demo.queue(concurrency_count=4)
 demo.launch()

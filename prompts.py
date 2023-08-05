@@ -103,7 +103,7 @@ examples_few_shot = [
         "command": "TAKEOFF"
     },
     {
-        "sentence": "Land now.",
+        "sentence": "Land.",
         "command": "LAND"
     },
     {
@@ -217,22 +217,6 @@ examples_few_shot = [
     {
         "sentence": "Go to Kroger on Iron Bridge and take a picture.",
         "command": "GOTO \tKroger on Iron Bridge\nTAKEPICTURE \tKroger on Iron Bridge"
-    },
-    {
-        "sentence": "Take a picture of the light blue building on Harrowgate Road, then go to the Wawa on Route 1.",
-        "command": "TAKEPICTURE \tlight blue building on Harrowgate Road\nGOTO \tWawa on Route 1"
-    },
-    {
-        "sentence": "Check out the yellow house on Clay St, then go to the Commons on W Main St.",
-        "command": "GOTO \tyellow house on Clay St\nGOTO \tCommons on W Main St"
-    },
-    {
-        "sentence": "Investigate the 7/11 on W Grace St, then go to the Barnes and Noble on W Broad St, then take a picture of it.",
-        "command": "GOTO \t7/11 on W Grace St\nGOTO \tBarnes and Noble on W Broad S\nTAKEPICTURE \tBarnes and Noble on W Broad St"
-    },
-    {
-        "sentence": "Go to the grey one story flat on Happy Hill Rd, then go to the Food Lion on the same road, then take a picture of it.",
-        "command": "GOTO \tgrey one story flat on Happy Hill Rd\nGOTO \tFood Lion on Happy Hill Rd\nTAKEPICTURE \tFood Lion on Happy Hill Rd"
     }
     # Commands with multiple actions and multiple locations
 ]
