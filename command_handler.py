@@ -1,20 +1,25 @@
 import re
-from flask import requests
+import requests
 
 
 def send_command(command, location=None):
-    url = f"http://url/{command}"
-    data = {}
+    base_url = f"http://url" # replace with UVA's URL
+
     if location:
-        data["location"] = location
-    response = requests.post(url, json=data)
+        endpoint = f"/{command}/{location}"
+    else:
+        endpoint = f"/{command}"
+
+    response = requests.post(f"{base_url}{endpoint}")
+
     return response.content
 
 
 def parse_command(text):
+    # does not support multiple commands
     tokens = re.split(' \t|\n|: ', text.lower())
     print(tokens)
     if len(tokens) >= 2:
-        return tokens[1]
+        return tokens[0], tokens[1]
     else:
-        return 'none'
+        return tokens[0]

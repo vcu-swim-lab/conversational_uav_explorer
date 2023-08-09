@@ -3,7 +3,6 @@ import gradio as gr
 from prompts import prompt_chat_response
 from fewshot import FewShot4UAVs
 
-
 fewshot = FewShot4UAVs()
 
 
@@ -17,8 +16,8 @@ def transcribe(audio):
     uav_command = get_uav_command(user_transcript, messages)
     uav_response = get_uav_response(messages)
 
-    # command = parse_command(uav_command)
-    # send_command(command)
+    # command, location = parse_command(uav_command)
+    # send_command(command, location)
 
     chat_transcript = build_chat_transcript(user_transcript, uav_command, uav_response)
 
