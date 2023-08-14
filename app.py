@@ -101,20 +101,6 @@ def record_button():
         transcribe(audio_filename)
 
 
-def create_map():
-    map_data = pdk.Deck(
-        map_style="mapbox://styles/mapbox/satellite-streets-v11",
-        initial_view_state={
-            "latitude": 37.541290,
-            "longitude": -77.434769,
-            "zoom": 11,
-            "pitch": 25,
-        },
-        layers=[],
-    )
-    st.pydeck_chart(map_data)
-
-
 def initialize_session():
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "system", "content": prompt_chat_response, "name": "System"}]
