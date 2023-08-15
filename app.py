@@ -9,15 +9,14 @@ import time
 fewshot = FewShot4UAVs()
 
 
-def transcribe(audio):
-    user_transcript = get_audio_transcript(audio)
-    uav_command = get_uav_command(user_transcript)
-    uav_response = get_uav_response()
+def initialize_session():
+    if "messages" not in st.session_state:
+        st.session_state.messages = [{"role": "system", "content": prompt_chat_response, "name": "System"}]
 
-    # command, location = parse_command(uav_command)
-    # send_command(command, location)
 
-    display_chat_transcript()
+def set_page_configuration():
+    st.set_page_config(page_title="UAV Explorer")
+    st.title("🚁 Conversational UAV Explorer")
 
 
 def get_audio_transcript(audio):
@@ -39,6 +38,17 @@ def get_uav_response():
     uav_response = response["choices"][0]["message"]["content"]
     st.session_state.messages.append({"role": "assistant", "content": uav_response, "name": "Assistant"})
     return uav_response
+
+
+def transcribe(audio):
+    user_transcript = get_audio_transcript(audio)
+    uav_command = get_uav_command(user_transcript)
+    uav_response = get_uav_response()
+
+    # command, location = parse_command(uav_command)
+    # send_command(command, location)
+
+    display_chat_transcript()
 
 
 def text_delay(prefix, message):
@@ -86,29 +96,16 @@ def display_latest_messages():
 
 
 def display_chat_transcript():
-    display_previous_messages()
     display_latest_messages()
-
+    display_previous_messages()
 
 def record_button():
     audio = audiorecorder("Start Voice Command", "End Voice Command")
-
     if len(audio) > 0:
         audio_filename = "temp_audio.wav"
         with open(audio_filename, "wb") as wav_file:
             wav_file.write(audio.tobytes())
-
         transcribe(audio_filename)
-
-
-def initialize_session():
-    if "messages" not in st.session_state:
-        st.session_state.messages = [{"role": "system", "content": prompt_chat_response, "name": "System"}]
-
-
-def set_page_configuration():
-    st.set_page_config(page_title="UAV Explorer")
-    st.title("🚁 Conversational UAV Explorer")
 
 
 def display_sidebar():
