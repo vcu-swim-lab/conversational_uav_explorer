@@ -1,5 +1,6 @@
 import openai
 import streamlit as st
+from command_handler import parse_command, send_command
 from prompts import prompt_chat_response
 from fewshot import FewShot4UAVs
 from audiorecorder import audiorecorder
@@ -45,8 +46,8 @@ def transcribe(audio):
     uav_command = get_uav_command(user_transcript)
     uav_response = get_uav_response()
 
-    # command, location = parse_command(uav_command)
-    # send_command(command, location)
+    command, location = parse_command(uav_command)
+    send_command(command, location)
 
     display_chat_transcript()
 
@@ -71,7 +72,7 @@ def display_previous_messages():
             with st.chat_message("user"):
                 st.markdown(prefix + content)
         elif role == "function":
-            with st.chat_message("UAV", avatar="✈️"):
+            with st.chat_message("UAV", avatar="🚁"):
                 st.markdown(prefix + content)
         elif role == "assistant":
             with st.chat_message("assistant"):
@@ -88,7 +89,7 @@ def display_latest_messages():
             with st.chat_message("user"):
                 text_delay(prefix, content)
         elif role == "function":
-            with st.chat_message("UAV", avatar="✈️"):
+            with st.chat_message("UAV", avatar="🚁"):
                 text_delay(prefix, content)
         elif role == "assistant":
             with st.chat_message("assistant"):
@@ -96,8 +97,9 @@ def display_latest_messages():
 
 
 def display_chat_transcript():
-    display_latest_messages()
     display_previous_messages()
+    display_latest_messages()
+
 
 def record_button():
     audio = audiorecorder("Start Voice Command", "End Voice Command")
