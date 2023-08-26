@@ -13,8 +13,6 @@ fewshot = FewShot4UAVs()
 def initialize_session():
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "system", "content": prompt_chat_response, "name": "System"}]
-    if "hide_history" not in st.session_state:
-        st.session_state.hide_history = False
 
 
 def set_page_configuration():
@@ -48,8 +46,8 @@ def transcribe(audio):
     uav_command = get_uav_command(user_transcript)
     uav_response = get_uav_response()
 
-    # command, location = parse_command(uav_command)
-    # send_command(command, location)
+    command, location = parse_command(uav_command)
+    send_command(command, location)
 
     display_latest_messages()
 
@@ -125,6 +123,9 @@ def display_main_tab():
         st.write(f"**Assistant**: Where would you like me to go today?")
     record_button()
 
+    with st.expander("Chat History"):
+        display_previous_messages()
+
 
 def display_map_tab():
     st.subheader("Satellite")
@@ -173,12 +174,10 @@ def main():
     set_page_configuration()
     display_sidebar()
 
-    main_tab, history_tab, map_tab = st.tabs(["Main", "Chat History", "Map"])
+    main_tab, map_tab = st.tabs(["Main", "Map"])
 
     with main_tab:
         display_main_tab()
-    with history_tab:
-        display_previous_messages()
     with map_tab:
         display_map_tab()
 
