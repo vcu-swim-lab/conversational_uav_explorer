@@ -13,6 +13,8 @@ fewshot = FewShot4UAVs()
 def initialize_session():
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "system", "content": prompt_chat_response, "name": "System"}]
+    if "hide_history" not in st.session_state:
+        st.session_state.hide_history = False
 
 
 def set_page_configuration():
@@ -46,10 +48,10 @@ def transcribe(audio):
     uav_command = get_uav_command(user_transcript)
     uav_response = get_uav_response()
 
-    command, location = parse_command(uav_command)
-    send_command(command, location)
+    # command, location = parse_command(uav_command)
+    # send_command(command, location)
 
-    display_chat_transcript()
+    display_latest_messages()
 
 
 def text_delay(prefix, message):
@@ -68,15 +70,8 @@ def display_previous_messages():
         content = message["content"]
         prefix = f"**{message['name']}**: "
 
-        if role == "user":
-            with st.chat_message("user"):
-                st.markdown(prefix + content)
-        elif role == "function":
-            with st.chat_message("UAV", avatar="🚁"):
-                st.markdown(prefix + content)
-        elif role == "assistant":
-            with st.chat_message("assistant"):
-                st.markdown(prefix + content)
+        if role != "system":
+            st.markdown(prefix + content)
 
 
 def display_latest_messages():
@@ -94,11 +89,6 @@ def display_latest_messages():
         elif role == "assistant":
             with st.chat_message("assistant"):
                 text_delay(prefix, content)
-
-
-def display_chat_transcript():
-    display_previous_messages()
-    display_latest_messages()
 
 
 def record_button():
@@ -183,10 +173,12 @@ def main():
     set_page_configuration()
     display_sidebar()
 
-    main_tab, map_tab = st.tabs(["Main", "Map"])
+    main_tab, history_tab, map_tab = st.tabs(["Main", "Chat History", "Map"])
 
     with main_tab:
         display_main_tab()
+    with history_tab:
+        display_previous_messages()
     with map_tab:
         display_map_tab()
 
