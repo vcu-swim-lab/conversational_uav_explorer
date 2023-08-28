@@ -10,6 +10,7 @@ def send_command(server_url, command, location=None):
     """
     Sends a command to the server.
 
+    :param server_url: server where the UAV is live
     :param command: command to send
     :type command: str
     :param location: location for the command, defaults to None
