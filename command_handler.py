@@ -6,7 +6,7 @@ import re
 import requests
 
 
-def send_command(command, location=None):
+def send_command(server_url, command, location=None):
     """
     Sends a command to the server.
 
@@ -17,7 +17,7 @@ def send_command(command, location=None):
     :return: server response content
     :rtype: bytes
     """
-    base_url = "http://url"
+    base_url = server_url
 
     if location:
         endpoint = f"/{command}/{location}"
