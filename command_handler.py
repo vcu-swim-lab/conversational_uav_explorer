@@ -17,7 +17,7 @@ def send_command(command, location=None):
     :return: server response content
     :rtype: bytes
     """
-    base_url = f"http://url"
+    base_url = "http://url"
 
     if location:
         endpoint = f"/{command}/{location}"
@@ -42,5 +42,4 @@ def parse_command(text):
     print(tokens)
     if len(tokens) >= 2:
         return tokens[0], tokens[1]
-    else:
-        return tokens[0]
+    return tokens[0]

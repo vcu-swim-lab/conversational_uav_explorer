@@ -1,5 +1,5 @@
 """
-This module contains the FewShot4UAVs class which is used to retrieve the transcription and parsed command.
+This module contains the FewShot4UAVs class which is used to get the transcription and command.
 """
 
 from langchain.llms import OpenAI
@@ -24,11 +24,12 @@ class FewShot4UAVs:
         get_command(text)
             Returns the final command.
     """
+
     def __init__(self) -> None:
         """Initializes the object with all necessary attributes"""
         self.llm = OpenAI(model_name="text-davinci-003", temperature=0.0)
 
-    def get_transcription(self, text):
+    def get_transcription(self, text):  # pylint: disable=unused-argument
         """
         Returns the transcription chain.
 

@@ -8,7 +8,7 @@ from fewshot import FewShot4UAVs
 
 
 @pytest.fixture
-def fewshot():
+def fewshot():  # pylint: disable=redefined-outer-name
     """Fixture for creating a FewShot4UAVs instance."""
     return FewShot4UAVs()
 
@@ -26,8 +26,7 @@ def parse_command(text):
     tokens = re.split(' \t|\n|: ', text.lower())
     if len(tokens) >= 2:
         return tokens[1]
-    else:
-        return 'none'
+    return 'none'
 
 
 def test_picture(fewshot):

@@ -37,12 +37,12 @@ def get_audio_transcript(audio):
     :return: transcript of the audio
     :rtype: str
     """
-    audio_file = open(audio, "rb")
-    transcript = openai.Audio.transcribe("whisper-1", audio_file)
-    user_transcript = transcript["text"]
-    st.session_state.messages.append({"role": "user",
-                                      "content": user_transcript,
-                                      "name": "Operator"})
+    with open(audio, "rb") as audio_file:
+        transcript = openai.Audio.transcribe("whisper-1", audio_file)
+        user_transcript = transcript["text"]
+        st.session_state.messages.append({"role": "user",
+                                          "content": user_transcript,
+                                          "name": "Operator"})
     return user_transcript
 
 
@@ -87,7 +87,7 @@ def transcribe(audio):
     :return: none
     """
     user_transcript = get_audio_transcript(audio)
-    uav_command = get_uav_command(user_transcript)
+    get_uav_command(user_transcript)
     get_uav_response()
 
     # command, location = parse_command(uav_command)
@@ -177,7 +177,7 @@ def display_sidebar():
 def display_main_tab():
     """Display the main tab where the conversational UAV is running"""
     with st.chat_message("assistant"):
-        st.write(f"**Assistant**: Where would you like me to go today?")
+        st.write("**Assistant**: Where would you like me to go today?")
     record_button()
 
     with st.expander("Chat History"):
