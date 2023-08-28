@@ -12,6 +12,7 @@ from prompts import PROMPT_CHAT_RESPONSE
 from fewshot import FewShot4UAVs
 
 fewshot = FewShot4UAVs()
+server_url = ""
 
 
 def initialize_session():
@@ -87,11 +88,11 @@ def transcribe(audio):
     :return: none
     """
     user_transcript = get_audio_transcript(audio)
-    get_uav_command(user_transcript)
-    get_uav_response()
+    uav_command = get_uav_command(user_transcript)
+    assistant_response = get_uav_response()
 
-    # command, location = parse_command(uav_command)
-    # send_command(command, location)
+    command, location = parse_command(uav_command)
+    send_command(server_url, command, location)
 
     display_latest_messages()
 
@@ -112,17 +113,6 @@ def text_delay(prefix, message):
         time.sleep(0.05)
         placeholder.markdown(response + "▌")
     placeholder.markdown(response)
-
-
-def display_previous_messages():
-    """Display previous messages in the chat"""
-    for message in st.session_state.messages[:-3]:
-        role = message["role"]
-        content = message["content"]
-        prefix = f"**{message['name']}**: "
-
-        if role != "system":
-            st.markdown(prefix + content)
 
 
 def display_latest_messages():
@@ -176,12 +166,29 @@ def display_sidebar():
 
 def display_main_tab():
     """Display the main tab where the conversational UAV is running"""
+    global server_url
+    server_url = st.text_input("Server URL", key="uav_server_url", placeholder="http://127.0.0.1:8080")
     with st.chat_message("assistant"):
         st.write("**Assistant**: Where would you like me to go today?")
     record_button()
 
-    with st.expander("Chat History"):
-        display_previous_messages()
+
+def display_history_tab():
+    """Display entire transcript of the chat"""
+    for message in st.session_state.messages:
+        role = message["role"]
+        content = message["content"]
+        prefix = f"**{message['name']}**: "
+
+        if role == "user":
+            with st.chat_message("user"):
+                st.write(prefix, content)
+        elif role == "function":
+            with st.chat_message("UAV", avatar="🚁"):
+                st.write(prefix, content)
+        elif role == "assistant":
+            with st.chat_message("assistant"):
+                st.write(prefix, content)
 
 
 def display_map_tab():
@@ -234,10 +241,11 @@ def main():
     set_page_configuration()
     display_sidebar()
 
-    main_tab, map_tab = st.tabs(["Main", "Map"])
-
+    main_tab, history_tab, map_tab = st.tabs(["Main", "History", "Map"])
     with main_tab:
         display_main_tab()
+    with history_tab:
+        display_history_tab()
     with map_tab:
         display_map_tab()
 
