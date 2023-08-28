@@ -1,21 +1,43 @@
-import os
+"""
+This module contains the FewShot4UAVs class which is used to retrieve the transcription and parsed command.
+"""
+
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.prompts.few_shot import FewShotPromptTemplate
-from langchain.chains import LLMChain
-from langchain.chains import SimpleSequentialChain
-from prompts import prompt_transcribe, prompt_command, examples_few_shot
+from langchain.chains import LLMChain, SimpleSequentialChain
+from prompts import PROMPT_TRANSCRIBE, EXAMPLES_FEW_SHOT
 
 
 class FewShot4UAVs:
+    """
+    Class used to get the transcription and command.
 
+    Attributes:
+        llm: LangChain OpenAI - language model instance
+
+    Methods:
+        get_transcription(text)
+            Returns the transcription chain.
+        format_command(chain)
+            Returns the sentence command chain.
+        get_command(text)
+            Returns the final command.
+    """
     def __init__(self) -> None:
+        """Initializes the object with all necessary attributes"""
         self.llm = OpenAI(model_name="text-davinci-003", temperature=0.0)
 
     def get_transcription(self, text):
+        """
+        Returns the transcription chain.
+
+        :param text: str, text to transcribe
+        :return: LLM sentence chain
+        """
         transcribe_prompt = PromptTemplate(
             input_variables=["text"],
-            template=prompt_transcribe
+            template=PROMPT_TRANSCRIBE
         )
 
         sentence_chain = LLMChain(llm=self.llm,
@@ -25,13 +47,19 @@ class FewShot4UAVs:
         return sentence_chain
 
     def format_command(self, chain):
+        """
+        Returns the sentence command chain.
+
+        :param chain: LLM sentence chain
+        :return: sentence command chain
+        """
         command = PromptTemplate(
             input_variables=["sentence", "command"],
             template="sentence: {sentence}\n{command}"
         )
 
         few_shot_prompt = FewShotPromptTemplate(
-            examples=examples_few_shot,
+            examples=EXAMPLES_FEW_SHOT,
             example_prompt=command,
             suffix="sentence: {sentence}",
             input_variables=["sentence"]
@@ -47,15 +75,12 @@ class FewShot4UAVs:
 
         return sentence_command_chain
 
-    def to_file(self, text):
-        try:
-            with open("commands.txt", "w") as f:
-                f.write(text)
-                print("Command successfully written to the file.")
-        except Exception as e:
-            print(f"Error: {e}")
-
     def get_command(self, text):
+        """
+        Returns the command
+
+        :param text: str, text to get command
+        :return: final command
+        """
         command = self.format_command(self.get_transcription(text))
-        self.to_file(command.run(text))
         return command.run(text)

@@ -1,58 +1,110 @@
+"""
+This module contains the main application for the Conversational UAV Explorer.
+"""
+
+import time
 import openai
 import streamlit as st
-from command_handler import parse_command, send_command
-from prompts import prompt_chat_response
-from fewshot import FewShot4UAVs
-from audiorecorder import audiorecorder
 import pydeck as pdk
-import time
+from audiorecorder import audiorecorder
+from command_handler import parse_command, send_command
+from prompts import PROMPT_CHAT_RESPONSE
+from fewshot import FewShot4UAVs
 
 fewshot = FewShot4UAVs()
 
 
 def initialize_session():
+    """Initializes the session state."""
     if "messages" not in st.session_state:
-        st.session_state.messages = [{"role": "system", "content": prompt_chat_response, "name": "System"}]
+        st.session_state.messages = [{"role": "system",
+                                      "content": PROMPT_CHAT_RESPONSE,
+                                      "name": "System"}]
 
 
 def set_page_configuration():
+    """Sets the page configuration for the website."""
     st.set_page_config(page_title="UAV Explorer")
     st.title("🚁 Conversational UAV Explorer")
 
 
 def get_audio_transcript(audio):
+    """
+    Retrieves the transcript from the recording
+
+    :param audio: audio file
+    :type audio: audio_file
+    :return: transcript of the audio
+    :rtype: str
+    """
     audio_file = open(audio, "rb")
     transcript = openai.Audio.transcribe("whisper-1", audio_file)
     user_transcript = transcript["text"]
-    st.session_state.messages.append({"role": "user", "content": user_transcript, "name": "Operator"})
+    st.session_state.messages.append({"role": "user",
+                                      "content": user_transcript,
+                                      "name": "Operator"})
     return user_transcript
 
 
 def get_uav_command(user_transcript):
+    """
+    Retrieves the UAV command from the user transcript
+
+    :param user_transcript: transcript of the user's audio
+    :type user_transcript: str
+    :return: UAV command
+    :rtype: str
+    """
     uav_command = fewshot.get_command(user_transcript)
-    st.session_state.messages.append({"role": "function", "content": uav_command, "name": "UAV"})
+    st.session_state.messages.append({"role": "function",
+                                      "content": uav_command,
+                                      "name": "UAV"})
     return uav_command
 
 
 def get_uav_response():
-    response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
+    """
+    Get the UAV response.
+
+    :return: UAV response
+    :rtype: str
+    """
+    response = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+                                            messages=st.session_state.messages)
     uav_response = response["choices"][0]["message"]["content"]
-    st.session_state.messages.append({"role": "assistant", "content": uav_response, "name": "Assistant"})
+    st.session_state.messages.append({"role": "assistant",
+                                      "content": uav_response,
+                                      "name": "Assistant"})
     return uav_response
 
 
 def transcribe(audio):
+    """
+    Transcribe the audio and send the command to the UAV.
+
+    :param audio: audio file
+    :type audio: audio_file
+    :return: none
+    """
     user_transcript = get_audio_transcript(audio)
     uav_command = get_uav_command(user_transcript)
-    uav_response = get_uav_response()
+    get_uav_response()
 
-    command, location = parse_command(uav_command)
-    send_command(command, location)
+    # command, location = parse_command(uav_command)
+    # send_command(command, location)
 
     display_latest_messages()
 
 
 def text_delay(prefix, message):
+    """
+    Display the message with a live texting effect.
+
+    :param prefix: role of the person typing.
+    :type prefix: str
+    :param message: message
+    :type message: str
+    """
     placeholder = st.empty()
     response = prefix
     for chunk in message.split():
@@ -63,6 +115,7 @@ def text_delay(prefix, message):
 
 
 def display_previous_messages():
+    """Display previous messages in the chat"""
     for message in st.session_state.messages[:-3]:
         role = message["role"]
         content = message["content"]
@@ -73,6 +126,7 @@ def display_previous_messages():
 
 
 def display_latest_messages():
+    """Display latest messages in the chat"""
     for message in st.session_state.messages[-3:]:
         role = message["role"]
         content = message["content"]
@@ -90,6 +144,7 @@ def display_latest_messages():
 
 
 def record_button():
+    """Display the record button and transcribe the audio"""
     audio = audiorecorder("Start Voice Command", "End Voice Command")
     if len(audio) > 0:
         audio_filename = "temp_audio.wav"
@@ -99,6 +154,7 @@ def record_button():
 
 
 def display_sidebar():
+    """Display the sidebar"""
     with st.sidebar:
         st.subheader("Instructions")
         st.write("1. Click on *Start Voice Command* to record a command.\n"
@@ -119,6 +175,7 @@ def display_sidebar():
 
 
 def display_main_tab():
+    """Display the main tab where the conversational UAV is running"""
     with st.chat_message("assistant"):
         st.write(f"**Assistant**: Where would you like me to go today?")
     record_button()
@@ -128,6 +185,7 @@ def display_main_tab():
 
 
 def display_map_tab():
+    """Display the map tab with details about the UAV"""
     st.subheader("Satellite")
     map_data = pdk.Deck(
         map_style="mapbox://styles/mapbox/satellite-streets-v11",
@@ -148,6 +206,7 @@ def display_map_tab():
 
 
 def display_logo():
+    """Display the logos in the footer"""
     logo = """
         <style>
             .footer {
@@ -170,6 +229,7 @@ def display_logo():
 
 
 def main():
+    """Runs the entire application"""
     initialize_session()
     set_page_configuration()
     display_sidebar()
