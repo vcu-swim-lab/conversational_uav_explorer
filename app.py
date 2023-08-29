@@ -91,8 +91,11 @@ def transcribe(audio):
     uav_command = get_uav_command(user_transcript)
     assistant_response = get_uav_response()
 
-    command, location = parse_command(uav_command)
-    send_command(server_url, command, location)
+    if server_url:
+        command, location = parse_command(uav_command)
+        send_command(server_url, command, location)
+    else:
+        pass
 
     display_latest_messages()
 
