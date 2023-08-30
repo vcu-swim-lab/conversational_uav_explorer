@@ -5,6 +5,7 @@
 # https://rasa.com/docs/rasa/custom-actions
 
 
+# pylint: disable=all
 
 import json
 from typing import Any, Text, Dict, List
