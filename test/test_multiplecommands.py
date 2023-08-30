@@ -7,7 +7,7 @@ from fewshot import FewShot4UAVs
 
 
 @pytest.fixture
-def fewshot():
+def fewshot():  # pylint: disable=duplicate-code
     """Fixture for creating a FewShot4UAVs instance."""
     return FewShot4UAVs()
 
