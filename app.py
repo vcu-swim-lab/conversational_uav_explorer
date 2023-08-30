@@ -184,14 +184,11 @@ def display_history_tab():
         prefix = f"**{message['name']}**: "
 
         if role == "user":
-            with st.chat_message("user"):
-                st.write(prefix, content)
+            st.write(prefix, content)
         elif role == "function":
-            with st.chat_message("UAV", avatar="🚁"):
-                st.write(prefix, content)
+            st.write(prefix, content)
         elif role == "assistant":
-            with st.chat_message("assistant"):
-                st.write(prefix, content)
+            st.write(prefix, content + "\n\n")
 
 
 def display_map_tab():
