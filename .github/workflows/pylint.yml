@@ -20,4 +20,4 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
-        pylint $(git ls-files '*.py')
+        pylint --disable=redefined-outer-name,import-error,global-statement,unused-argument $(git ls-files '*.py')

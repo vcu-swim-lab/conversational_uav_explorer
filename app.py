@@ -12,7 +12,7 @@ from prompts import PROMPT_CHAT_RESPONSE
 from fewshot import FewShot4UAVs
 
 fewshot = FewShot4UAVs()
-server_url = ""
+SERVER_URL = ""
 
 
 def initialize_session():
@@ -169,8 +169,10 @@ def display_sidebar():
 
 def display_main_tab():
     """Display the main tab where the conversational UAV is running"""
-    global server_url
-    server_url = st.text_input("Server URL", key="uav_server_url", placeholder="http://127.0.0.1:8080")
+    global SERVER_URL
+    SERVER_URL = st.text_input("Server URL",
+                               key="uav_server_url",
+                               placeholder="http://127.0.0.1:8080")
     with st.chat_message("assistant"):
         st.write("**Assistant**: Where would you like me to go today?")
     record_button()

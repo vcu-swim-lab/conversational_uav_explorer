@@ -1,9 +1,9 @@
 """This module contains the AddressLocator class which converts a location to an address."""
 
 from datetime import datetime
-import googlemaps
 import re
-
+import googlemaps
+from googlemaps.exceptions import ApiError, HTTPError, TransportError, Timeout
 
 class AddressLocator:
     """This class converts a location to an address using Google Maps API"""
@@ -31,9 +31,8 @@ class AddressLocator:
                     results = response.get('results')
                     if results:
                         return results[0]['formatted_address']
-                    else:
-                        return None
-                except Exception as error:
+                    return None
+                except (ApiError, HTTPError, TransportError, Timeout) as error:
                     print(error)
         return None
 

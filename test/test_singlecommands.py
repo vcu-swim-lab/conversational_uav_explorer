@@ -8,7 +8,7 @@ from fewshot import FewShot4UAVs
 
 
 @pytest.fixture
-def fewshot():  # pylint: disable=redefined-outer-name
+def fewshot():
     """Fixture for creating a FewShot4UAVs instance."""
     return FewShot4UAVs()
 
