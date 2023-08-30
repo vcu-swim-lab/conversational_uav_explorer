@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 
 @app.route('/goto/<location>', methods=['POST'])
-def goto(location):  # pylint disable=unused-argument,unnecessary-pass
+def goto(location):
     """Endpoint for 'go to <location>' """
     pass
 
