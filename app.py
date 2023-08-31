@@ -219,7 +219,7 @@ def display_logo():
     logo = """
         <style>
             .footer {
-                position: fixed;
+                position: relative;
                 bottom: 0;
                 left: 0;
                 width: 100%;
@@ -229,9 +229,9 @@ def display_logo():
         </style>
 
         <div class="footer">
-            <img src="host vcu logo" width=200>
-            <span style="font-size: 30px; margin: 0 15px;">×</span>
-            <img src="host uva logo" width=120>
+            <img src="https://i.imgur.com/j46TmcD.png" width=200>
+            <span style="font-size: 35px; margin: 0px 0px 0px 30px;">×</span>
+            <img src="https://i.imgur.com/tWq1v4N.png" width=190>
         </div>
     """
     st.markdown(logo, unsafe_allow_html=True)
