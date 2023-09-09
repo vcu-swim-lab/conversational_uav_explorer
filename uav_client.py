@@ -1,5 +1,5 @@
 """
-This module sends a POST request to the UAV server.
+This module sends HTTP requests to the UAV server.
 """
 
 import re
@@ -27,6 +27,19 @@ def send_command(server_url, command, location=None):
 
     response = requests.post(f"{base_url}{endpoint}")
 
+    return response.content
+
+
+def get_uav_status(server_url):
+    """
+    Retrieves the status of the UAV from the server.
+
+    :param server_url: URL of the server where the UAV is live
+    :type server_url: str
+    :return: UAV status if successful, None otherwise
+    :rtype: bytes
+    """
+    response = requests.get(f"{server_url}/get_uav_status")
     return response.content
 
 
