@@ -40,7 +40,7 @@ def get_uav_status(server_url):
     :rtype: bytes
     """
     response = requests.get(f"{server_url}/get_uav_status")
-    return response.content
+    return response.text
 
 
 def parse_command(text):
