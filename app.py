@@ -7,7 +7,7 @@ import openai
 import streamlit as st
 import pydeck as pdk
 from audiorecorder import audiorecorder
-from uav_client import parse_command, send_command, get_uav_status
+from uav_client import parse_command, send_command
 from prompts import PROMPT_CHAT_RESPONSE
 from fewshot import FewShot4UAVs
 
