@@ -7,18 +7,12 @@ import openai
 import streamlit as st
 import pydeck as pdk
 from audiorecorder import audiorecorder
-from uav_client import parse_command, send_command
+from uav_client import parse_command, send_command, get_uav_status
 from prompts import PROMPT_CHAT_RESPONSE
 from fewshot import FewShot4UAVs
 
 fewshot = FewShot4UAVs()
 SERVER_URL = ""
-
-UAV_STATUS = {
-    "Taking off": "green",
-    "On the way": "green",
-    "Landing": "red"
-}
 
 
 def initialize_session():
@@ -179,11 +173,28 @@ def display_main_tab():
     SERVER_URL = st.text_input("Server URL",
                                key="uav_server_url",
                                placeholder="http://127.0.0.1:8080")
+    st.write("")
     with st.chat_message("assistant"):
         st.write("**Assistant**: Where would you like me to go today?")
 
     with st.spinner("Fetching command..."):
         record_button()
+        st.write("")
+
+    uav_status = get_uav_status(SERVER_URL)
+
+    status_messages = {
+        "-1": "❌ Error executing command",
+        "1": "🚀 Taking off...",
+        "2": "🛫 On the way...",
+        "3": "🛬 Landing...",
+        "4": "📸 Taking a picture..."
+    }
+
+    if uav_status == "-1":
+        st.error(status_messages.get("-1"))
+    else:
+        st.success(status_messages.get(uav_status))
 
 
 def display_history_tab():
