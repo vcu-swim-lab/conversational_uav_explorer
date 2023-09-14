@@ -2,6 +2,7 @@ Blockly.defineBlocksWithJsonArray([
     {
         "type": "take_off",
         "message0":"Take off",
+        "previousStatement": null,
         "nextStatement": null,
         "colour": "#a10005"
     },
@@ -36,7 +37,9 @@ Blockly.defineBlocksWithJsonArray([
     {
         "type": "land",
         "message0":"Land",
-        "previousStatement": null
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": "blue"
     },
 ])
 
