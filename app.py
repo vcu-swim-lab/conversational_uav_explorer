@@ -194,7 +194,7 @@ def display_main_tab():
 
 def display_history_tab():
     """Display entire transcript of the chat"""
-    LOG_STYLES = """
+    log_styles = """
         <style>
             .log-style {
                 background-color: black;
@@ -207,7 +207,7 @@ def display_history_tab():
         </style>
         """
 
-    st.markdown(LOG_STYLES, unsafe_allow_html=True)
+    st.markdown(log_styles, unsafe_allow_html=True)
 
     for message in st.session_state.messages:
         role = message["role"]
@@ -215,7 +215,6 @@ def display_history_tab():
         prefix = f"**{message['name']}**: "
 
         formatted_message = f"<div class='log-style'>{prefix} {content}</div>"
-        
         if role == "user":
             st.markdown(formatted_message, unsafe_allow_html=True)
         elif role == "function":
