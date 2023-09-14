@@ -128,9 +128,6 @@ def display_latest_messages():
         if role == "user":
             with st.chat_message("user"):
                 text_delay(prefix, content)
-        elif role == "function":
-            with st.chat_message("UAV", avatar="🚁"):
-                text_delay(prefix, content)
         elif role == "assistant":
             with st.chat_message("assistant"):
                 text_delay(prefix, content)
@@ -174,8 +171,6 @@ def display_main_tab():
                                key="uav_server_url",
                                placeholder="http://127.0.0.1:8080")
     st.write("")
-    with st.chat_message("assistant"):
-        st.write("**Assistant**: Where would you like me to go today?")
 
     with st.spinner("Fetching command..."):
         record_button()
@@ -199,17 +194,34 @@ def display_main_tab():
 
 def display_history_tab():
     """Display entire transcript of the chat"""
+    LOG_STYLES = """
+        <style>
+            .log-style {
+                background-color: black;
+                color: white;
+                font-family: 'Courier New', Courier, monospace;
+                padding: 10px;
+                border-radius: 5px;
+                white-space: pre-wrap; 
+            }
+        </style>
+        """
+
+    st.markdown(LOG_STYLES, unsafe_allow_html=True)
+
     for message in st.session_state.messages:
         role = message["role"]
         content = message["content"]
         prefix = f"**{message['name']}**: "
 
+        formatted_message = f"<div class='log-style'>{prefix} {content}</div>"
+        
         if role == "user":
-            st.write(prefix, content)
+            st.markdown(formatted_message, unsafe_allow_html=True)
         elif role == "function":
-            st.write(prefix, content)
+            st.markdown(formatted_message, unsafe_allow_html=True)
         elif role == "assistant":
-            st.write(prefix, content + "\n\n")
+            st.markdown(formatted_message + "<br>", unsafe_allow_html=True)
 
 
 def display_map_tab():
