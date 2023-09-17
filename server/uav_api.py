@@ -27,6 +27,11 @@ def takepicture(location):
     """Endpoint for 'take picture <description>' """
     pass
 
+@app.route('/get_uav_status', methods=['GET'])
+def uav_status():
+    """Endpoint for retrieving the UAV's status """
+    pass
+
 
 if __name__ == '__main__':
     app.run()
