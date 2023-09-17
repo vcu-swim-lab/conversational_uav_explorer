@@ -1,0 +1,27 @@
+body {
+    padding-top: 50px;
+}
+
+.voice-btn, .send-btn {
+    padding: 10px 20px;
+    width: 100px;
+    text-align: center;
+}
+
+.content-container {
+    align-items: start;
+    gap: 10px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#droneSimulator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
