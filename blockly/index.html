@@ -20,21 +20,13 @@
                 <button type="button" class="btn btn-primary send-btn" id="sendButton">Send</button>
             </div>
             <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
-            <div id="droneSimulator" style="height: 480px; width: 600px; margin-left: 20px; background-color: #e9e9e9;">
+            <div id="droneSimulator">
                 <p id="droneStatus">This is just to show where the drone simulator will be</p></div>
         </div>
     </div>
 
-    <script src="blockly_setup.js"></script>
-    <script>
-        document.getElementById("voiceButton").addEventListener("click", function() {
-            if (this.innerText == "Voice") {
-                this.innerText = "Stop";
-            } else {
-                this.innerText = "Voice";
-            }
-        })
-    </script>
+    <script src="blocks.js"></script>
+    <script src="audioProcessing.js"></script>
 
 </body>
 </html>
