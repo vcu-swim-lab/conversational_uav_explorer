@@ -30,6 +30,15 @@ def takepicture(location):
 @app.route('/get_uav_status', methods=['GET'])
 def uav_status():
     """Endpoint for retrieving the UAV's status """
+
+    """status_messages
+        -1: Error executing command
+        1: Take off
+        2: Go to
+        3: Land
+        4: Take picture
+    """
+
     pass
 
 
