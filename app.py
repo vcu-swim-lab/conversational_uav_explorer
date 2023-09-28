@@ -1,7 +1,6 @@
 """
 This module contains the main application for the Conversational UAV Explorer.
 """
-
 import time
 import openai
 import streamlit as st
@@ -95,7 +94,8 @@ def transcribe(audio):
         command, location = parse_command(uav_command)
         send_command(SERVER_URL, command, location)
     else:
-        pass
+        extracted_command, location = parse_command(uav_command)
+        print(f"Extracted UAV Command: command: {extracted_command} location: {location}")
 
     display_latest_messages()
 
@@ -136,10 +136,12 @@ def display_latest_messages():
 def record_button():
     """Display the record button and transcribe the audio"""
     audio = audiorecorder("Start Voice Command", "End Voice Command")
+
     if len(audio) > 0:
         audio_filename = "temp_audio.wav"
-        with open(audio_filename, "wb") as wav_file:
-            wav_file.write(audio.tobytes())
+        
+        audio.export(audio_filename, format="wav")
+
         transcribe(audio_filename)
 
 
