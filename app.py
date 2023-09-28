@@ -139,9 +139,7 @@ def record_button():
 
     if len(audio) > 0:
         audio_filename = "temp_audio.wav"
-        
         audio.export(audio_filename, format="wav")
-
         transcribe(audio_filename)
 
 
