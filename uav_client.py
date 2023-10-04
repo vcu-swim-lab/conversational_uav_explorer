@@ -36,7 +36,7 @@ def get_uav_status(server_url):
 
     :param server_url: URL of the server where the UAV is live
     :type server_url: str
-    :return: UAV status if successful, None otherwise
+    :return: UAV status if successful, -1 otherwise
     :rtype: bytes
     """
     # response = requests.get(f"{server_url}/get_uav_status")
@@ -54,8 +54,12 @@ def parse_command(text):
     :return: command and location if available, else command
     :rtype: str
     """
-    tokens = re.split(' \t|\n|: ', text.lower())
-    print(tokens)
-    if len(tokens) >= 2:
-        return tokens[0], tokens[1]
-    return tokens[0]
+    words = text.split()
+
+    if len(words) >= 2:
+        command = words[0].lower()
+        location = ' '.join(words[1:]).lower() if command in {"goto", "takepicture"} else None
+    else:
+        command, location = words[0].lower(), None
+
+    return command, location

@@ -92,10 +92,17 @@ def transcribe(audio):
 
     if SERVER_URL:
         command, location = parse_command(uav_command)
-        send_command(SERVER_URL, command, location)
+        if location is None:
+            send_command(SERVER_URL, command)
+        else:
+            send_command(SERVER_URL, command, location)
     else:
-        extracted_command, location = parse_command(uav_command)
-        print(f"Extracted UAV Command: command: {extracted_command} location: {location}")
+        # testing
+        command, location = parse_command(uav_command)
+        if location is None:
+            print("COMMAND ", command)
+        else:
+            print("COMMAND and LOCATION ", command, location)
 
     display_latest_messages()
 

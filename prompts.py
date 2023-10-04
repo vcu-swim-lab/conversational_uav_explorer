@@ -23,9 +23,7 @@ return "NONE".
 
 You need to return the command in this format: <command> \t<goal>
 
-However, if you get a sentence with multiple commands here is what you need to do:
-For example take the sentence, "Go to the Walmart in Petersburg and take a picture."
-The format of the command needs to be: <first command> \t<goal>\n\n<second command> \t<goal>
+There should be no punctuation in your final command.
 
 Sentence: {sentence}
 """
@@ -206,15 +204,5 @@ EXAMPLES_FEW_SHOT = [
     {
         "sentence": "Please check out the CVS on W Broad St.",
         "command": "GOTO \tCVS on W Broad St"
-    },
-    # Commands with multiple actions
-    {
-        "sentence": "Go to the purple house on to the left and take a picture.",
-        "command": "GOTO \tpurple house on to the left\nTAKEPICTURE \tpurple house on to the left"
-    },
-    {
-        "sentence": "Go to Kroger on Iron Bridge and take a picture.",
-        "command": "GOTO \tKroger on Iron Bridge\nTAKEPICTURE \tKroger on Iron Bridge"
     }
-    # Commands with multiple actions and multiple locations
 ]
