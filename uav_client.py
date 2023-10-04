@@ -1,8 +1,6 @@
 """
 This module sends HTTP requests to the UAV server.
 """
-
-import re
 import requests
 
 
