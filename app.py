@@ -7,6 +7,7 @@ import streamlit as st
 import pydeck as pdk
 from audiorecorder import audiorecorder
 from uav_client import parse_command, send_command, get_uav_status
+import jackal_grpc
 from prompts import PROMPT_CHAT_RESPONSE
 from fewshot import FewShot4UAVs
 
@@ -24,8 +25,8 @@ def initialize_session():
 
 def set_page_configuration():
     """Sets the page configuration for the website."""
-    st.set_page_config(page_title="UAV Explorer")
-    st.title("🚁 Conversational UAV Explorer")
+    st.set_page_config(page_title="UV Explorer")
+    st.title("🚁 Conversational UV Explorer")
 
 
 def get_audio_transcript(audio):
@@ -89,10 +90,15 @@ def transcribe(audio):
     user_transcript = get_audio_transcript(audio)
     uav_command = get_uav_command(user_transcript)
     get_uav_response()
+    print("server_url: ",SERVER_URL)
 
     if SERVER_URL:
-        command, location = parse_command(uav_command)
-        send_command(SERVER_URL, command, location)
+        url_pre=SERVER_URL.split("$/")[0]
+        if url_pre=="http:": #flask http server
+            command, location = parse_command(uav_command)
+            send_command(SERVER_URL, command, location)
+        else: #grpc server
+            jackal_grpc.jackal_grpc_send_command(uav_command, user_transcript)
     else:
         extracted_command, location = parse_command(uav_command)
         print(f"Extracted UAV Command: command: {extracted_command} location: {location}")
@@ -168,8 +174,9 @@ def display_main_tab():
     """Display the main tab where the conversational UAV is running"""
     global SERVER_URL
     SERVER_URL = st.text_input("Server URL",
+                               value="robot.coldspringworks.com",
                                key="uav_server_url",
-                               placeholder="http://127.0.0.1:8080")
+                               placeholder="robot.coldspringworks.com")
     st.write("")
 
     with st.spinner("Fetching command..."):
@@ -180,9 +187,9 @@ def display_main_tab():
 
     status_messages = {
         "-1": "❌ Error executing command",
-        "1": "🚀 Taking off...",
+        "1": "🚀 goto...",
         "2": "🛫 On the way...",
-        "3": "🛬 Landing...",
+        "3": "🛬 return home...",
         "4": "📸 Taking a picture..."
     }
 
@@ -224,7 +231,7 @@ def display_history_tab():
 
 
 def display_map_tab():
-    """Display the map tab with details about the UAV"""
+    """Display the map tab with details about the Vehicle"""
     st.subheader("Satellite")
     map_data = pdk.Deck(
         map_style="mapbox://styles/mapbox/satellite-streets-v11",
@@ -238,7 +245,7 @@ def display_map_tab():
     )
     st.pydeck_chart(map_data)
 
-    st.subheader("UAV Status")
+    st.subheader("UV Status")
     st.text("Battery: 80%")
     st.text("Altitude: 1000 ft")
     st.text("Speed: 15 mph")
@@ -261,7 +268,7 @@ def display_logo():
         <div class="footer">
             <img src="https://i.imgur.com/j46TmcD.png" width=200>
             <span style="font-size: 35px; margin: 0px 0px 0px 30px;">×</span>
-            <img src="https://i.imgur.com/tWq1v4N.png" width=190>
+            <img src="https://i.imgur.com/HMBEhmB.jpg" width=190>
         </div>
     """
     st.markdown(logo, unsafe_allow_html=True)

@@ -19,6 +19,7 @@ def land():
 @app.route('/takeoff', methods=['POST'])
 def takeoff():
     """Endpoint for 'takeoff' """
+    print("sending takeoff cmd to grpc or ros node")
     pass
 
 

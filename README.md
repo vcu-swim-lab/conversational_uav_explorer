@@ -4,3 +4,47 @@ app_file: app.py
 sdk: gradio
 sdk_version: 3.35.2
 ---
+
+
+-----------run --------------------
+
+export OPENAI_API_KEY=sk-....B3d 
+streamlit run app.py
+	specify server_url where the cmd will be sent to.
+
+server_url options:
+	(1) simple http server @Robot:
+		cd server; flask --app jackal_api.py run 
+	(2) grpc signaling server robot.coldspringworks.com 
+		see jackal_grpc.py
+
+----------installation -------------------------
+
+Ubuntu:
+sudo apt install portaudio19-dev
+sudo apt-get install python3-pyaudio
+pip install -r requirements
+	pip install streamlit-audiorecorder
+sudo apt install ffmpeg
+
+---------------10/3/23 grpc python code adding gotorel  -----
+grpc btw client and device(server):
+  client: SendTask(.. "goalrel")
+  device: inteceptor created using "goalrel", RecvTask() will only tap to such message
+
+need Tang to add goalrel.py rosnode
+
+---------------10/3/23 grpc python code test  -----
+
+streaming:
+python jackal_grpc_client.py  --jwt_secret 123456 --function temperature:Temperature post
+python jackal_grpc_client.py  --jwt_secret 123456 --function pose:Pose post
+python jackal_grpc_client.py  --jwt_secret 123456 --function map:Map post
+
+get one:
+python jackal_grpc.py
+
+---------------10/2/23 webrtc video stream -----
+https://www.whitphx.info/posts/20211231-streamlit-webrtc-video-app-tutorial/
+https://webrtc.streamlit.app/object_detection
+
