@@ -1,0 +1,13 @@
+syntax = "proto3";
+option swift_prefix = "Vision_";
+import "google/protobuf/any.proto";
+
+service Serve {
+  // Client
+  rpc RecvPost(google.protobuf.Any) returns (stream google.protobuf.Any) {}
+  rpc SendTask(stream google.protobuf.Any) returns (google.protobuf.Any) {}
+
+  // Device
+  rpc SendPost(stream google.protobuf.Any) returns (google.protobuf.Any) {}
+  rpc RecvTask(google.protobuf.Any) returns (stream google.protobuf.Any) {}
+}

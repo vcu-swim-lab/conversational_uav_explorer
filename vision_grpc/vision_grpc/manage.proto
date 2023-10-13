@@ -1,0 +1,120 @@
+syntax = "proto3";
+option swift_prefix = "Vision_";
+message AddDeviceRequest {
+  string device = 1;
+  uint64 project = 2;
+  string name = 3;
+  string avatar = 4;
+}
+
+message AddDeviceResponse {}
+
+message DelDeviceRequest {
+  string device = 1;
+  uint64 project = 2;
+}
+
+message DelDeviceResponse {}
+
+message ChangeDeviceRequest {
+  string device = 1;
+  uint64 project = 2;
+  string name = 3;
+  string avatar = 4;
+}
+
+message ChangeDeviceResponse {}
+
+message AddLandmarkRequest {
+  string landmark = 1;
+  uint64 project = 2;
+  string name = 3;
+  string avatar = 4;
+  double latitude = 5;
+  double longitude = 6;
+}
+
+message AddLandmarkResponse {}
+
+message DelLandmarkRequest {
+  string landmark = 1;
+  uint64 project = 2;
+}
+
+message DelLandmarkResponse {}
+
+message ChangeLandmarkRequest {
+  string landmark = 1;
+  uint64 project = 2;
+  string name = 3;
+  string avatar = 4;
+  double latitude = 5;
+  double longitude = 6;
+}
+
+message ChangeLandmarkResponse {}
+
+message ListLandmarkRequest { uint64 project = 1; }
+
+message ListLandmarkResponse {
+  message Record {
+    string landmark = 1;
+    string name = 2;
+    string avatar = 3;
+    double latitude = 4;
+    double longitude = 5;
+  }
+  repeated Record record = 1;
+}
+
+message ListDeviceRequest { uint64 project = 1; }
+
+message ListDeviceResponse {
+  message Record {
+    string device = 1;
+    string name = 2;
+    string avatar = 3;
+    string live = 4;
+    string token = 5;
+  }
+  repeated Record record = 1;
+}
+
+message ListUserRequest { uint64 project = 1; }
+
+message ListUserResponse {
+  message Record {
+    string user = 1;
+    string name = 2;
+    string email = 3;
+    string avatar = 4;
+    string role = 5;
+  }
+  repeated Record record = 1;
+}
+
+message ChangeRoleRequest {
+  string user = 1;
+  uint64 project = 2;
+  string role = 3;
+}
+
+message ChangeRoleResponse {}
+
+message RoleRequest {}
+
+message RoleResponse { map<uint64, string> project = 1; }
+
+service Manage {
+  rpc AddDevice(AddDeviceRequest) returns (AddDeviceResponse) {}
+  rpc DelDevice(DelDeviceRequest) returns (DelDeviceResponse) {}
+  rpc ChangeDevice(ChangeDeviceRequest) returns (ChangeDeviceResponse) {}
+  rpc AddLandmark(AddLandmarkRequest) returns (AddLandmarkResponse) {}
+  rpc DelLandmark(DelLandmarkRequest) returns (DelLandmarkResponse) {}
+  rpc ChangeLandmark(ChangeLandmarkRequest) returns (ChangeLandmarkResponse) {}
+  rpc ListLandmark(ListLandmarkRequest) returns (ListLandmarkResponse) {}
+  rpc ListDevice(ListDeviceRequest) returns (ListDeviceResponse) {}
+  rpc ListUser(ListUserRequest) returns (ListUserResponse) {}
+  rpc ChangeRole(ChangeRoleRequest) returns (ChangeRoleResponse) {}
+  rpc Role(RoleRequest) returns (RoleResponse) {}
+}

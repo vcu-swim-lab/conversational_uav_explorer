@@ -1,4 +1,5 @@
-# api to get grpc data, called from app.py
+# api to get grpc data or send data to grpc server, called from app.py
+# Ju Wang, 10/2023
 
 import grpc
 import asyncio
@@ -43,7 +44,8 @@ channel = grpc.secure_channel(
 
 stub = manage_pb2_grpc.ManageStub(channel)
 stub2 = serve_pb2_grpc.ServeStub(channel)
-device = robot_uuid.robot_uuid_dict['baal_hp8000']['uuid']
+device = robot_uuid.robot_uuid_dict['baal_real']['uuid']
+#device = robot_uuid.robot_uuid_dict['baal_hp8000']['uuid']
 #device = "649dcfba-4dbf-11e6-9c43-bc0000c00000" #baal_hp8000
 print('device uuid: ', device)
 
@@ -143,15 +145,17 @@ def jackal_grpc_get_temperatureasync():
     print('temperatrue msg return: ', msg_ret)
 
 def jackal_grpc_get_mapasync():
-    msg_ret = jackal_grpc_client.main_post(function="map:Map")
+    msg_ret = jackal_grpc_client.main_post(function="map:Map", device=device)
     print('message return: ', msg_ret)
     print('map w/h: ', msg_ret.width, msg_ret.height)
     print('map orig: ', msg_ret.origin)
+    print('map orig: ', msg_ret.timestamp.ToJsonString())
 
 def jackal_grpc_get_poseasync():
-    msg_ret = jackal_grpc_client.main_post(function="pose:Pose")
+    msg_ret = jackal_grpc_client.main_post(function="pose:Pose", device=device)
     print('message return: ', msg_ret)
     print('pose position: x/y/z ', msg_ret.position.x, msg_ret.position.y, msg_ret.position.z)
+    print('map orig: ', msg_ret.timestamp.ToJsonString())
 
 # called in app.py
 def jackal_grpc_send_command(commandstr_gpt, commandstr):
@@ -191,7 +195,7 @@ if __name__ == '__main__':
     #jackal_grpc_test()
     #jackal_grpc_goto()
     #jackal_grpc_get_poseasync()
-    #jackal_grpc_get_mapasync()
+    jackal_grpc_get_mapasync()
     #jackal_grpc_get_temperatureasync()
-    jackal_grpc_gotorel(x=0.5, rotation=-10)
+    #jackal_grpc_gotorel(x=0.5, rotation=-10)
 

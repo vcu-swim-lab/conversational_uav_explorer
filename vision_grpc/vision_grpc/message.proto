@@ -1,0 +1,48 @@
+syntax = "proto3";
+option swift_prefix = "Vision_";
+import "google/protobuf/timestamp.proto";
+
+message Joy {
+  repeated float axes = 1;
+  repeated int32 buttons = 2;
+}
+
+message NavSat {
+  double latitude = 1;
+  double longitude = 2;
+  double altitude = 3;
+  google.protobuf.Timestamp timestamp = 4;
+}
+
+message Pose {
+  message Point {
+    double x = 1;
+    double y = 2;
+    double z = 3;
+  }
+  message Quaternion {
+    double x = 1;
+    double y = 2;
+    double z = 3;
+    double w = 4;
+  }
+  Point position = 1;
+  Quaternion orientation = 2;
+  string frame = 3;
+  google.protobuf.Timestamp timestamp = 4;
+}
+
+message Map {
+  bytes svg = 1;
+  float width = 2;
+  float height = 3;
+  Pose origin = 4;
+  google.protobuf.Timestamp timestamp = 5;
+}
+
+message Battery {
+  double percentage = 1;
+  google.protobuf.Timestamp timestamp = 2;
+}
+
+message Temperature { double measure = 1; }
