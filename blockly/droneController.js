@@ -8,12 +8,12 @@ class DroneController {
       Blockly.Xml.domToWorkspace(Blockly.utils.xml.textToDom(xml), this.workspace);
     }
   
-    takeOff() {
+    takeoff() {
       const xmlTakeOff = `<xml xmlns="${this.commonXmlns}"><block type="take_off"></block></xml>`;
       this.executeBlocklyXml(xmlTakeOff);
     }
   
-    goTo(location) {
+    goto(location) {
       const xmlGoTo = `<xml xmlns="${this.commonXmlns}">
         <block type="go_to">
           <field name="LOCATION">${location}</field>
@@ -22,7 +22,7 @@ class DroneController {
       this.executeBlocklyXml(xmlGoTo);
     }
   
-    takePicture(object) {
+    takepicture(object) {
       const xmlTakePicture = `<xml xmlns="${this.commonXmlns}">
           <block type="take_picture">
               <field name="OBJECT">${object}</field>

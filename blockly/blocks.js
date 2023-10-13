@@ -80,7 +80,7 @@ const workspace = Blockly.inject('blocklyDiv', {
 
 const drone = new DroneController(workspace);
 
-drone.takeOff();
-drone.goTo('Chick-Fil-A');
-drone.takePicture('dumpster');
+drone.takeoff();
+drone.goto('Chick-Fil-A');
+drone.takepicture('dumpster');
 drone.land();
