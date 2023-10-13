@@ -65,4 +65,22 @@ const toolbox = {
     ]
 }
 
-const workspace = Blockly.inject('blocklyDiv', {media: './node_modules/blockly/media/', toolbox: toolbox});
+
+const workspace = Blockly.inject('blocklyDiv', {
+  media: './node_modules/blockly/media/',
+  toolbox: toolbox,
+  grid: {
+      spacing: 20,
+      length: 3,
+      colour: '#ccc',
+      snap: true
+  },
+  scrollbars: false
+  });
+
+const drone = new DroneController(workspace);
+
+drone.takeOff();
+drone.goTo('Chick-Fil-A');
+drone.takePicture('dumpster');
+drone.land();
