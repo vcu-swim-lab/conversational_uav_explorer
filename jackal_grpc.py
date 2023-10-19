@@ -44,8 +44,8 @@ channel = grpc.secure_channel(
 
 stub = manage_pb2_grpc.ManageStub(channel)
 stub2 = serve_pb2_grpc.ServeStub(channel)
-device = robot_uuid.robot_uuid_dict['baal_real']['uuid']
-#device = robot_uuid.robot_uuid_dict['baal_hp8000']['uuid']
+#device = robot_uuid.robot_uuid_dict['baal_real']['uuid']
+device = robot_uuid.robot_uuid_dict['baal_hp8000']['uuid']
 #device = "649dcfba-4dbf-11e6-9c43-bc0000c00000" #baal_hp8000
 print('device uuid: ', device)
 
@@ -194,8 +194,8 @@ def jackal_grpc_send_command(commandstr_gpt, commandstr):
 if __name__ == '__main__':
     #jackal_grpc_test()
     #jackal_grpc_goto()
-    #jackal_grpc_get_poseasync()
+    jackal_grpc_get_poseasync()
     jackal_grpc_get_mapasync()
-    #jackal_grpc_get_temperatureasync()
+    jackal_grpc_get_temperatureasync()
     #jackal_grpc_gotorel(x=0.5, rotation=-10)
 
