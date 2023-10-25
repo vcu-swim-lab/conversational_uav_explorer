@@ -24,6 +24,7 @@ import server.robot_uuid as robot_uuid
 
 import numpy as np
 from scipy.spatial.transform import Rotation as R
+import zlib
 
 jwt_secret = "123456"
 sub = "github:6932348"
@@ -146,10 +147,29 @@ def jackal_grpc_get_temperatureasync():
 
 def jackal_grpc_get_mapasync():
     msg_ret = jackal_grpc_client.main_post(function="map:Map", device=device)
-    print('message return: ', msg_ret)
+    #print('message return: ', msg_ret)
     print('map w/h: ', msg_ret.width, msg_ret.height)
     print('map orig: ', msg_ret.origin)
     print('map orig: ', msg_ret.timestamp.ToJsonString())
+    deflated = msg_ret.svg
+    maptype = msg_ret.svg[-3:]
+    print("maptype is: ", maptype)
+    if maptype==b'pgm':
+        deflated = deflated[:-3]
+    decomp = zlib.decompressobj()
+    restored_svg = zlib.decompress(deflated,wbits=-zlib.MAX_WBITS)
+    print(len(restored_svg), type(restored_svg))
+    if maptype == b'pgm':
+        mapfn = "map2.pgm"
+        print("saving pgm ")
+        with open(mapfn, "wb") as f:
+            f.write(restored_svg) #decode convert bytes to str
+    else:
+        #default case svg
+        mapfn = "map2.svg"
+        print("saving svg ")
+        with open(mapfn, "w") as f:
+            f.write(restored_svg.decode("utf-8")) #decode convert bytes to str
 
 def jackal_grpc_get_poseasync():
     msg_ret = jackal_grpc_client.main_post(function="pose:Pose", device=device)
