@@ -190,13 +190,14 @@ def display_main_tab():
         "1": "🚀 Taking off...",
         "2": "🛫 On the way...",
         "3": "🛬 Landing...",
-        "4": "📸 Taking a picture..."
+        "4": "📸 Taking a picture...",
+        None: "Waiting for a command"
     }
 
     if uav_status == "-1":
         st.error(status_messages.get("-1"))
     elif uav_status is None:
-        st.warning("Waiting for a command")
+        st.warning(status_messages.get(None))
     else:
         st.success(status_messages.get(uav_status))
 
