@@ -3,35 +3,29 @@ from flask import Flask
 
 app = Flask(__name__)
 
-uav_current_status = "0"  # default status? waiting for a command
-
 
 @app.route('/goto/<location>', methods=['POST'])
 def goto(location):
     """Endpoint for 'go to <location>' """
-    global uav_current_status
-    uav_current_status = "2"
+    pass
 
 
 @app.route('/land', methods=['POST'])
 def land():
     """Endpoint for 'land' """
-    global uav_current_status
-    uav_current_status = "3"
+    pass
 
 
 @app.route('/takeoff', methods=['POST'])
 def takeoff():
     """Endpoint for 'takeoff' """
-    global uav_current_status
-    uav_current_status = "1"
+    pass
 
 
 @app.route('/takepicture/<location>', methods=['POST'])
 def takepicture(location):
     """Endpoint for 'take picture <description>' """
-    global uav_current_status
-    uav_current_status = "4"
+    pass
 
 
 @app.route('/get_uav_status', methods=['GET'])
@@ -45,8 +39,7 @@ def uav_status():
         3: Land
         4: Take picture
     """
-    global uav_current_status
-    return uav_current_status
+    pass
 
 
 if __name__ == '__main__':
