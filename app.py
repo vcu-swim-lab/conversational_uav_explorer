@@ -195,7 +195,7 @@ def display_main_tab():
 
     if uav_status == "-1":
         st.error(status_messages.get("-1"))
-    elif uav_status == "0":
+    elif uav_status is None:
         st.warning("Waiting for a command")
     else:
         st.success(status_messages.get(uav_status))

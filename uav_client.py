@@ -37,9 +37,8 @@ def get_uav_status(server_url):
     :return: UAV status if successful, -1 otherwise
     :rtype: str
     """
-    # response = requests.get(f"{server_url}/get_uav_status")
-    # return response.text
-    return "1"
+    response = requests.get(f"{server_url}/get_uav_status")
+    return response.text
 
 
 def parse_command(text):
