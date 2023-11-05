@@ -178,7 +178,6 @@ def display_main_tab():
                                key="uav_server_url",
                                placeholder="http://127.0.0.1:8080")
     st.write("")
-    print(f"Server URL: {SERVER_URL}")
 
     with st.spinner("Fetching command..."):
         record_button()
@@ -199,7 +198,7 @@ def display_main_tab():
         if uav_status == "-1":
             st.error(status_messages.get("-1"))
         elif uav_status == "0":
-            st.warning("Waiting for a command")
+            pass
         else:
             st.success(status_messages.get(uav_status))
 
