@@ -178,27 +178,30 @@ def display_main_tab():
                                key="uav_server_url",
                                placeholder="http://127.0.0.1:8080")
     st.write("")
+    print(f"Server URL: {SERVER_URL}")
 
     with st.spinner("Fetching command..."):
         record_button()
         st.write("")
 
-    uav_status = get_uav_status(SERVER_URL)
+    if SERVER_URL:
+        uav_status = get_uav_status(SERVER_URL)
 
-    status_messages = {
-        "-1": "❌ Error executing command",
-        "1": "🚀 Taking off...",
-        "2": "🛫 On the way...",
-        "3": "🛬 Landing...",
-        "4": "📸 Taking a picture..."
-    }
+        status_messages = {
+            "-1": "❌ Error executing command",
+            "0": "Waiting for a command",
+            "1": "🚀 Taking off...",
+            "2": "🛫 On the way...",
+            "3": "🛬 Landing...",
+            "4": "📸 Taking a picture..."
+        }
 
-    if uav_status == "-1":
-        st.error(status_messages.get("-1"))
-    elif uav_status == "0":
-        st.warning("Waiting for a command")
-    else:
-        st.success(status_messages.get(uav_status))
+        if uav_status == "-1":
+            st.error(status_messages.get("-1"))
+        elif uav_status == "0":
+            st.warning("Waiting for a command")
+        else:
+            st.success(status_messages.get(uav_status))
 
 
 def display_history_tab():
