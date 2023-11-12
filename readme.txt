@@ -27,6 +27,11 @@ pip install -r requirements
 	pip install streamlit-audiorecorder
 sudo apt install ffmpeg
 
+pip install pyjwt
+
+------------11/11/23 grpc update ----------
+goalrel note, also see VisionRobot repo readme
+
 ------------ 10/13/23 video test ----------------------------
 python3 tools/chrome.py                                                       
     this generate url to access video for local machine test   

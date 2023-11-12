@@ -45,8 +45,8 @@ channel = grpc.secure_channel(
 
 stub = manage_pb2_grpc.ManageStub(channel)
 stub2 = serve_pb2_grpc.ServeStub(channel)
-#device = robot_uuid.robot_uuid_dict['baal_real']['uuid']
-device = robot_uuid.robot_uuid_dict['baal_hp8000']['uuid']
+device = robot_uuid.robot_uuid_dict['baal_real']['uuid']
+#device = robot_uuid.robot_uuid_dict['baal_hp8000']['uuid']
 #device = "649dcfba-4dbf-11e6-9c43-bc0000c00000" #baal_hp8000
 print('device uuid: ', device)
 
@@ -54,8 +54,26 @@ print('device uuid: ', device)
 def parse_location(command_l):
     return (0,0)
 
+def jackal_grpc_joy(axes=-1, buttons=1): #joy task hacked for sending ctl info
+    message = message_pb2.Joy()
+    message.axes.append(axes)
+    message.buttons.append(buttons)
+    print("message :", message)
+    request = any_pb2.Any()
+    request.Pack(message)
+    response = stub2.SendTask(
+        iter([request]),
+        metadata=[
+            ("device", device),
+            ("authorization", authorization),
+            ("function", "joy"),
+        ],
+    )
+    print(response)
+
 #goto should treat x/y as relative from current position, not absolute pose in map frame
-# need tang to create goalrel.py ros node, with metadata "goalrel" for interceptor
+# this actually does not need to create additional grpc message
+# goalrel.py ros node, with metadata "goalrel" for interceptor
 # ration in degree
 def jackal_grpc_gotorel(x=0,y=0, rotation=0):
     message = message_pb2.Pose()
@@ -79,7 +97,7 @@ def jackal_grpc_gotorel(x=0,y=0, rotation=0):
         metadata=[
             ("device", device),
             ("authorization", authorization),
-            ("function", "goal"),
+            ("function", "goalrel"),
         ],
     )
     print(response)
@@ -213,9 +231,10 @@ def jackal_grpc_send_command(commandstr_gpt, commandstr):
 
 if __name__ == '__main__':
     #jackal_grpc_test()
-    #jackal_grpc_goto()
-    jackal_grpc_get_poseasync()
-    jackal_grpc_get_mapasync()
-    jackal_grpc_get_temperatureasync()
-    #jackal_grpc_gotorel(x=0.5, rotation=-10)
+    jackal_grpc_goto()
+#    jackal_grpc_get_poseasync()
+#    jackal_grpc_get_mapasync()
+#    jackal_grpc_get_temperatureasync()
+    jackal_grpc_gotorel(x=0.5, rotation=-10)
+    jackal_grpc_joy(axes=-1, buttons=1) #joy task hacked for sending ctl info
 
