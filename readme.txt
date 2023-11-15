@@ -29,6 +29,10 @@ sudo apt install ffmpeg
 
 pip install pyjwt
 
+------------11/14/23 grpc update ----------
+jackal_grpc.py
+  svg or pgm map get work now. make sure device side use new map.py commit
+
 ------------11/11/23 grpc update ----------
 goalrel note, also see VisionRobot repo readme
 
