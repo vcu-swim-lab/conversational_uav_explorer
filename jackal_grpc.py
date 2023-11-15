@@ -21,11 +21,11 @@ from google.protobuf import json_format
 import datetime
 import jwt
 import server.robot_uuid as robot_uuid
-
+import argparse
 import numpy as np
 from scipy.spatial.transform import Rotation as R
 import zlib
-
+import time
 jwt_secret = "123456"
 sub = "github:6932348"
 exp = datetime.datetime.now(tz=datetime.timezone.utc) + datetime.timedelta(weeks=1)
@@ -45,8 +45,8 @@ channel = grpc.secure_channel(
 
 stub = manage_pb2_grpc.ManageStub(channel)
 stub2 = serve_pb2_grpc.ServeStub(channel)
-device = robot_uuid.robot_uuid_dict['baal_real']['uuid']
-#device = robot_uuid.robot_uuid_dict['baal_hp8000']['uuid']
+#device = robot_uuid.robot_uuid_dict['baal_real']['uuid']
+device = robot_uuid.robot_uuid_dict['baal_hp8000']['uuid']
 #device = "649dcfba-4dbf-11e6-9c43-bc0000c00000" #baal_hp8000
 print('device uuid: ', device)
 
@@ -122,6 +122,25 @@ def jackal_grpc_goto(x=0,y=0):
     print("goto TEST2")
     print(response)
 
+# use gotorel func to set parameter string
+# format :paramname:paramvalue
+def jackal_grpc_paramsetter(paramname, paramvalue):
+    message = message_pb2.Pose()
+    message.orientation.w = 1.0
+    message.frame = ":"+paramname+":"+str(paramvalue)
+    request = any_pb2.Any()
+    request.Pack(message)
+    response = stub2.SendTask(
+        iter([request]),
+        metadata=[
+            ("device", device),
+            ("authorization", authorization),
+            ("function", "goalrel"),
+        ],
+    )
+    print("goto TEST2")
+    print(response)
+
 def jackal_grpc_test():
     print("testing jackal_grpc")
     request = manage_pb2.ListDeviceRequest(project=0)
@@ -166,9 +185,11 @@ def jackal_grpc_get_temperatureasync():
 def jackal_grpc_get_mapasync():
     msg_ret = jackal_grpc_client.main_post(function="map:Map", device=device)
     #print('message return: ', msg_ret)
+    print('map resolution: 0.5 m/pixel')
     print('map w/h: ', msg_ret.width, msg_ret.height)
-    print('map orig: ', msg_ret.origin)
-    print('map orig: ', msg_ret.timestamp.ToJsonString())
+    print('map orig x/y (pixel), : ', msg_ret.origin.position.x,msg_ret.origin.position.y,msg_ret.origin.position.z)
+    print('map orientation x/y/z/w : ', msg_ret.origin.orientation.x,msg_ret.origin.orientation.y,msg_ret.origin.orientation.z, msg_ret.origin.orientation.w)
+    print('map time: ', msg_ret.timestamp.ToJsonString())
     deflated = msg_ret.svg
     maptype = msg_ret.svg[-3:]
     print("maptype is: ", maptype)
@@ -189,11 +210,18 @@ def jackal_grpc_get_mapasync():
         with open(mapfn, "w") as f:
             f.write(restored_svg.decode("utf-8")) #decode convert bytes to str
 
-def jackal_grpc_get_poseasync():
-    msg_ret = jackal_grpc_client.main_post(function="pose:Pose", device=device)
-    print('message return: ', msg_ret)
-    print('pose position: x/y/z ', msg_ret.position.x, msg_ret.position.y, msg_ret.position.z)
-    print('map orig: ', msg_ret.timestamp.ToJsonString())
+def jackal_grpc_get_poseasync(loop=False):
+    if loop:
+        loopcnt=1000
+    else:
+        loopcnt=1
+    for i in range(loopcnt):
+        time.sleep(1)
+        msg_ret = jackal_grpc_client.main_post(function="pose:Pose", device=device)
+        print('message return: ', msg_ret)
+        print('pose position: x/y/z ', msg_ret.position.x, msg_ret.position.y, msg_ret.position.z)
+        print('pose quat: x/y/z/w ', msg_ret.orientation.x, msg_ret.orientation.y, msg_ret.orientation.z, msg_ret.orientation.w)
+        print('pose time: ', msg_ret.timestamp.ToJsonString())
 
 # called in app.py
 def jackal_grpc_send_command(commandstr_gpt, commandstr):
@@ -230,11 +258,25 @@ def jackal_grpc_send_command(commandstr_gpt, commandstr):
             jackal_grpc_get_mapasync()
 
 if __name__ == '__main__':
-    #jackal_grpc_test()
-    jackal_grpc_goto()
-#    jackal_grpc_get_poseasync()
-#    jackal_grpc_get_mapasync()
-#    jackal_grpc_get_temperatureasync()
-    jackal_grpc_gotorel(x=0.5, rotation=-10)
-    jackal_grpc_joy(axes=-1, buttons=1) #joy task hacked for sending ctl info
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--looppose', action='store_true') #default false
+    parser.add_argument("--maptype", dest="maptype", default="svg")
+    args = parser.parse_args()
+    if args.looppose:
+        jackal_grpc_get_poseasync(loop=True)
 
+    #jackal_grpc_test()
+#    jackal_grpc_goto()
+    jackal_grpc_get_poseasync()
+#    jackal_grpc_get_temperatureasync()
+#    jackal_grpc_gotorel(x=0.5, rotation=-10)
+#    jackal_grpc_joy(axes=-1, buttons=1) #joy task hacked for sending ctl info
+#    jackal_grpc_paramsetter("testparam", 100)
+
+#paramsetter set ros param at device, 
+    if args.maptype=="svg":
+        jackal_grpc_paramsetter("/vision_one_map/maptype", "svg")
+    else:
+        jackal_grpc_paramsetter("/vision_one_map/maptype", "pgm")
+    time.sleep(0.5) # wait for 0.5 sec for map data to be updated
+    jackal_grpc_get_mapasync()
